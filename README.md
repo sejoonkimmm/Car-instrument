@@ -1,2 +1,3 @@
 # Car-instrument
-Make the Car instrument with QT Creator
+
+Assignment link : (https://github.com/SEA-ME/DES_Instrument-Cluster)
