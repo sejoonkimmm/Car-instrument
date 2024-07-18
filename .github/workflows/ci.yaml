@@ -1,0 +1,44 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential
+        sudo apt-get install -y qt6-base-dev qt6-tools-dev qt6-tools-dev-tools
+        sudo apt-get install -y can-utils cmake
+
+    - name: Build the Qt application
+      run: |
+        mkdir -p build
+        cd build
+        cmake ../src
+        make
+
+    - name: Run unit tests
+      run: |
+        cd build
+        if [ -f ./PiRacerInstrumentCluster ]; then
+          ./PiRacerInstrumentCluster --test
+        else
+          echo "No test suite found"
+          exit 1
+        fi
+
+    - name: Archive build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: build-artifacts
+        path: build/PiRacerInstrumentCluster
+
