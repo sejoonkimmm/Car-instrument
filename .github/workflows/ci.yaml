@@ -12,10 +12,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Docker
+    - name: Set up Docker using official script
       run: |
         sudo apt-get update
-        sudo apt-get install -y docker.io
+        curl -fsSL https://get.docker.com -o get-docker.sh
+        sh get-docker.sh
 
     - name: Run build in Docker container
       run: |
