@@ -12,33 +12,31 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install dependencies
+    - name: Set up Docker
       run: |
         sudo apt-get update
-        sudo apt-get install -y build-essential
-        sudo apt-get install -y qt6-base-dev qt6-tools-dev qt6-tools-dev-tools
-        sudo apt-get install -y can-utils cmake
+        sudo apt-get install -y docker.io
 
-    - name: Build the Qt application
+    - name: Run build in Docker container
       run: |
-        mkdir -p build
-        cd build
-        cmake ../src
-        make
-
-    - name: Run unit tests
-      run: |
-        cd build
+        docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace debian:bookworm-slim bash -c "
+        apt-get update &&
+        apt-get install -y build-essential qt6-base-dev qt6-tools-dev qt6-tools-dev-tools can-utils cmake python3 python3-pip python3.11-venv &&
+        pip3 install -r requirements.txt &&
+        mkdir -p build &&
+        cd build &&
+        cmake ../src &&
+        make &&
         if [ -f ./PiRacerInstrumentCluster ]; then
           ./PiRacerInstrumentCluster --test
         else
-          echo "No test suite found"
+          echo 'No test suite found'
           exit 1
         fi
+        "
 
     - name: Archive build artifacts
       uses: actions/upload-artifact@v2
       with:
         name: build-artifacts
         path: build/PiRacerInstrumentCluster
-
