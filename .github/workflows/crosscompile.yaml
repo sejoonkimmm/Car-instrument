@@ -30,7 +30,13 @@ jobs:
 
     - name: Run Cross-Compilation
       run: |
-        docker run --rm --platform linux/arm64 -v $(pwd):/workspace -v $(pwd)/build:/workspace/build rpi-cross-compiler
+        docker run --rm --platform linux/arm64 -v $(pwd):/workspace rpi-cross-compiler
+
+    - name: List Files in Workspace
+      run: ls -l $(pwd)
+
+    - name: List Files in Workspace/Build Directory
+      run: ls -l $(pwd)/workspace/build
 
     - name: List Files in Build Directory
       run: ls -l $(pwd)/build
