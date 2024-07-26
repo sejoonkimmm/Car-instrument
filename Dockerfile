@@ -8,10 +8,6 @@ RUN apt-get update && apt-get install -y \
     qt6-tools-dev \
     qt6-declarative-dev \
     qtcreator \
-    libqt6serialport6-dev \
-    libqt6widgets6-6 \
-    libqt6gui6-6 \
-    libqt6core6-6 \
     qt6-base-dev-tools \
     qt6-base \
     gcc-arm-none-eabi \
