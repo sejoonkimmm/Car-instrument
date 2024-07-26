@@ -22,15 +22,26 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
 
+    - name: Login to DockerHub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
     - name: Create Build Directory
       run: mkdir -p build
 
     - name: Build Docker Image
-      run: docker build -t rpi-cross-compiler .
+      run: |
+        docker buildx create --use
+        docker buildx build --platform linux/arm64 \
+          --cache-from=type=registry,ref=${{ secrets.DOCKER_USERNAME }}/rpi-cross-compiler:cache \
+          --cache-to=type=registry,ref=${{ secrets.DOCKER_USERNAME }}/rpi-cross-compiler:cache,mode=max \
+          -t ${{ secrets.DOCKER_USERNAME }}/rpi-cross-compiler:latest .
+        docker push ${{ secrets.DOCKER_USERNAME }}/rpi-cross-compiler:latest
 
     - name: Run Cross-Compilation
-      run: |
-        docker run --rm --platform linux/arm64 -v $(pwd):/workspace/build rpi-cross-compiler
+      run: docker run --rm --platform linux/arm64 -v $(pwd):/workspace/build ${{ secrets.DOCKER_USERNAME }}/rpi-cross-compiler:latest
 
     - name: List Files in Workspace
       run: ls -l $(pwd)
