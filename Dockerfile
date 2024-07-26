@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM arm64v8/debian:bookworm
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
