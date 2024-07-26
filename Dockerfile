@@ -15,11 +15,7 @@ RUN apt-get update && apt-get install -y \
     qt6-base-dev \
     qt6-tools-dev \
     qt6-declarative-dev \
-    qtcreator \
     qt6-base-dev-tools \
-    gcc-arm-none-eabi \
-    libstdc++-arm-none-eabi-newlib \
-    can-utils \
     curl \
     git
 

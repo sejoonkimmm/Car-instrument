@@ -20,7 +20,7 @@ jobs:
       uses: docker/setup-qemu-action@v1
 
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      uses: docker/setup-buildx-action@v1
 
     - name: Build Docker Image
       run: |
@@ -28,7 +28,18 @@ jobs:
 
     - name: Run Cross-Compilation
       run: |
-        docker run --rm -v $(pwd):/workspace rpi-cross-compiler
+        docker run --rm --platform linux/arm64 -v $(pwd):/workspace rpi-cross-compiler
+
+    - name: List Files in Build Directory
+      run: |
+        ls -l /workspace/build
+
+    - name: Verify Build Output
+      run: |
+        if [ ! -f /workspace/build/InstrumentCluster ]; then
+          echo "Build output not found!"
+          exit 1
+        fi
 
     - name: Install Google Cloud SDK
       run: |
@@ -40,7 +51,7 @@ jobs:
     - name: Upload Artifacts to Google Cloud Storage
       env:
         GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-        GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
+        GCS_BUCKET: carinstrument
         GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
       run: |
         echo "${{ secrets.GCP_SA_KEY }}" | base64 --decode > ${HOME}/gcp-key.json
