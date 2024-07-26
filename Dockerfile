@@ -12,10 +12,10 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     libgl1-mesa-dev \
     cmake \
-    qt6-base-dev \
-    qt6-tools-dev \
-    qt6-declarative-dev \
-    qt6-base-dev-tools \
+    qt5-base-dev \
+    qt5-tools-dev \
+    qt5-declarative-dev \
+    qt5-base-dev-tools \
     curl \
     git
 
