@@ -32,11 +32,11 @@ jobs:
 
     - name: List Files in Build Directory
       run: |
-        ls -l /workspace/build
+        ls -l $(pwd)/build
 
     - name: Verify Build Output
       run: |
-        if [ ! -f /workspace/build/InstrumentCluster ]; then
+        if [ ! -f $(pwd)/build/InstrumentCluster ]; then
           echo "Build output not found!"
           exit 1
         fi
@@ -56,4 +56,4 @@ jobs:
       run: |
         echo "${{ secrets.GCP_SA_KEY }}" | base64 --decode > ${HOME}/gcp-key.json
         gcloud auth activate-service-account --key-file=${HOME}/gcp-key.json
-        gsutil cp /workspace/build/InstrumentCluster gs://${{ secrets.GCS_BUCKET }}/InstrumentCluster
+        gsutil cp $(pwd)/build/InstrumentCluster gs://${{ secrets.GCS_BUCKET }}/InstrumentCluster

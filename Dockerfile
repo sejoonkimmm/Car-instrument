@@ -22,8 +22,12 @@ RUN apt-get update && apt-get install -y \
 # Set up work directory
 WORKDIR /workspace
 
+RUN ls -l /workspace
+
 # Copy the source code into the container
 COPY . .
 
-# Run the build commands
-CMD ["bash", "-c", "mkdir -p build && cd build && cmake ../ && make"]
+RUN mkdir -p build && cd build && cmake ../ && make
+
+# Debug: List files in the build directory after build
+RUN ls -l /workspace/build
