@@ -2,7 +2,7 @@
 FROM multiarch/qemu-user-static as qemu
 
 # Stage 2: Build stage
-FROM balenalib/raspberrypi4-64-debian:latest
+FROM arm64v8/debian:bookworm
 
 # Copy QEMU from the first stage
 COPY --from=qemu /usr/bin/qemu-aarch64-static /usr/bin/
@@ -12,22 +12,27 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     libgl1-mesa-dev \
     cmake \
-    qt5-base-dev \
-    qt5-tools-dev \
-    qt5-declarative-dev \
-    qt5-base-dev-tools \
+    qt6-base-dev \
+    qt6-tools-dev \
+    qt6-declarative-dev \
+    qt6-base-dev-tools \
     curl \
     git
 
 # Set up work directory
 WORKDIR /workspace
 
-RUN ls -l /workspace
+# Copy only CMakeLists.txt first to leverage Docker layer caching
+COPY CMakeLists.txt .
 
-# Copy the source code into the container
+# Run cmake to configure and download dependencies, cache this layer
+RUN mkdir -p /build && cd /build && cmake /workspace
+
+# Copy the rest of the source code
 COPY . .
 
-RUN mkdir -p build && cd build && cmake ../ && make
+# Build the project
+RUN cd /build && make
 
 # Debug: List files in the build directory after build
-RUN ls -l /workspace/build
+RUN ls -l /build
