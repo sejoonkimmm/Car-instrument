@@ -39,3 +39,5 @@ jobs:
         echo "${{ secrets.GCP_SA_KEY }}" | base64 --decode > ${HOME}/gcp-key.json
         gcloud auth activate-service-account --key-file=${HOME}/gcp-key.json
         gsutil cp /workspace/build/my_project gs://${{ secrets.GCS_BUCKET }}/my_project
+        
+#
