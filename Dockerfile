@@ -2,7 +2,7 @@
 FROM multiarch/qemu-user-static as qemu
 
 # Stage 2: Build stage
-FROM arm64v8/debian:bookworm
+FROM balenalib/raspberrypi4-64-debian:latest
 
 # Copy QEMU from the first stage
 COPY --from=qemu /usr/bin/qemu-aarch64-static /usr/bin/
