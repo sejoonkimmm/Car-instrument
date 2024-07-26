@@ -30,6 +30,10 @@ jobs:
       run: |
         docker run --rm --platform linux/arm64 -v $(pwd):/workspace rpi-cross-compiler
 
+    - name: List Files in Workspace
+      run: |
+        ls -l $(pwd)
+
     - name: List Files in Build Directory
       run: |
         ls -l $(pwd)/workspace/build
@@ -56,4 +60,4 @@ jobs:
       run: |
         echo "${{ secrets.GCP_SA_KEY }}" | base64 --decode > ${HOME}/gcp-key.json
         gcloud auth activate-service-account --key-file=${HOME}/gcp-key.json
-        gsutil cp $(pwd)/build/InstrumentCluster gs://${{ secrets.GCS_BUCKET }}/InstrumentCluster
+        gsutil cp $(pwd)/workspace/build/InstrumentCluster gs://${{ secrets.GCS_BUCKET }}/InstrumentCluster
