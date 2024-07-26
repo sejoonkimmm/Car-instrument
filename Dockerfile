@@ -9,11 +9,11 @@ RUN apt-get update && apt-get install -y \
     qt6-declarative-dev \
     qtcreator \
     libqt6serialport6-dev \
-    libqt6widgets6 \
-    libqt6gui6 \
-    libqt6core6 \
-    qtbase6-dev-tools \
-    qt6-qmake \
+    libqt6widgets6-6 \
+    libqt6gui6-6 \
+    libqt6core6-6 \
+    qt6-base-dev-tools \
+    qt6-base \
     gcc-arm-none-eabi \
     libstdc++-arm-none-eabi-newlib \
     can-utils \
@@ -27,10 +27,6 @@ WORKDIR /workspace
 
 # Copy the source code into the container
 COPY . .
-
-# Set environment variables for cross-compilation
-ENV PATH /usr/bin:$PATH
-ENV CROSS_COMPILE arm-none-eabi-
 
 # Run the build commands
 CMD ["bash", "-c", "mkdir -p build && cd build && cmake .. && make"]
