@@ -22,17 +22,11 @@ RUN apt-get update && apt-get install -y \
 # Set up work directory
 WORKDIR /workspace
 
-# Copy only CMakeLists.txt first to leverage Docker layer caching
-COPY CMakeLists.txt .
-
-# Run cmake to configure and download dependencies, cache this layer
-RUN mkdir -p /build && cd /build && cmake /workspace
-
-# Copy the rest of the source code
+# Copy the source code into the container
 COPY . .
 
-# Build the project
-RUN cd /build && make
+# Run the build commands
+RUN mkdir -p /build && cd /build && cmake /workspace && make
 
 # Debug: List files in the build directory after build
 RUN ls -l /build

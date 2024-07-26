@@ -33,7 +33,7 @@ jobs:
         run: |
           docker create --name cross_compiler_container rpi-cross-compiler
           docker start cross_compiler_container
-          docker exec cross_compiler_container ls -l /build
+          docker logs cross_compiler_container
 
       - name: Copy Build Artifacts
         run: |
