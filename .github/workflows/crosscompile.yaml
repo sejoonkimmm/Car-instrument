@@ -37,7 +37,7 @@ jobs:
 
       - name: Copy Build Artifacts
         run: |
-          docker cp cross_compiler_container:/build/InstrumentCluster ./build/
+          docker cp cross_compiler_container:/build ./build
           docker rm cross_compiler_container
 
       - name: List Files in Build Directory
