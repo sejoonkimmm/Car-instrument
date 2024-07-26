@@ -35,9 +35,6 @@ jobs:
     - name: List Files in Workspace
       run: ls -l $(pwd)
 
-    - name: List Files in Workspace/Build Directory
-      run: ls -l $(pwd)/workspace/build
-
     - name: List Files in Build Directory
       run: ls -l $(pwd)/build
 
