@@ -20,8 +20,6 @@ RUN apt-get update && apt-get install -y \
     gcc-arm-none-eabi \
     libstdc++-arm-none-eabi-newlib \
     can-utils \
-    python3 \
-    python3-pip \
     curl \
     git
 
