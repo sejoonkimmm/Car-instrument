@@ -32,11 +32,11 @@ jobs:
 
     - name: List Files in Build Directory
       run: |
-        ls -l $(pwd)/build
+        ls -l $(pwd)/workspace/build
 
     - name: Verify Build Output
       run: |
-        if [ ! -f $(pwd)/build/InstrumentCluster ]; then
+        if [ ! -f $(pwd)/workspace/build/InstrumentCluster ]; then
           echo "Build output not found!"
           exit 1
         fi
