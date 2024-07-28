@@ -1,20 +1,21 @@
-FROM debian:bookworm
+# Stage 1: Setup QEMU and dependencies
+FROM multiarch/qemu-user-static as qemu
+
+# Stage 2: Build stage
+FROM arm64v8/debian:bookworm
+
+# Copy QEMU from the first stage
+COPY --from=qemu /usr/bin/qemu-aarch64-static /usr/bin/
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
-    libgl1-mesa-dev  \
+    libgl1-mesa-dev \
     cmake \
     qt6-base-dev \
     qt6-tools-dev \
     qt6-declarative-dev \
-    qtcreator \
     qt6-base-dev-tools \
-    gcc-arm-none-eabi \
-    libstdc++-arm-none-eabi-newlib \
-    can-utils \
-    python3 \
-    python3-pip \
     curl \
     git
 
@@ -25,4 +26,7 @@ WORKDIR /workspace
 COPY . .
 
 # Run the build commands
-CMD ["bash", "-c", "mkdir -p build && cd build && cmake .. && make"]
+RUN mkdir -p /build && cd /build && cmake /workspace && make
+
+# Debug: List files in the build directory after build
+RUN ls -l /build
