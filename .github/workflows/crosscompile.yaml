@@ -44,13 +44,6 @@ jobs:
       - name: List Files in Build Directory
         run: ls -l $(pwd)/build
 
-      # - name: Verify Build Output
-      #   run: |
-      #     if [ ! -f $(pwd)/build/InstrumentCluster ]; then
-      #       echo "Build output not found!"
-      #       exit 1
-      #     fi
-
       - name: Install Google Cloud SDK
         run: |
           echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
@@ -66,4 +59,4 @@ jobs:
         run: |
           echo "${{ secrets.GCP_SA_KEY }}" | base64 --decode > ${HOME}/gcp-key.json
           gcloud auth activate-service-account --key-file=${HOME}/gcp-key.json
-          gsutil cp $(pwd)/build gs://${{ secrets.GCS_BUCKET }}
+          gsutil cp -r $(pwd)/build/* gs://${{ secrets.GCS_BUCKET }}
