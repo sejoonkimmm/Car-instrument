@@ -44,6 +44,10 @@ jobs:
       - name: List Files in Build Directory
         run: ls -l $(pwd)/build
 
+      - name: Compress Build Artifacts
+        run: |
+          tar -czvf build.tar.gz -C build .
+
       - name: Install Google Cloud SDK
         run: |
           echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
@@ -59,4 +63,6 @@ jobs:
         run: |
           echo "${{ secrets.GCP_SA_KEY }}" | base64 --decode > ${HOME}/gcp-key.json
           gcloud auth activate-service-account --key-file=${HOME}/gcp-key.json
-          gsutil cp -r $(pwd)/build/* gs://${{ secrets.GCS_BUCKET }}
+          TIMESTAMP=$(date +%Y%m%d%H%M%S)
+          gsutil cp build.tar.gz gs://${{ secrets.GCS_BUCKET }}/build-${TIMESTAMP}.tar.gz
+          gsutil cp build.tar.gz gs://${{ secrets.GCS_BUCKET }}/latest-build.tar.gz
