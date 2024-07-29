@@ -23,7 +23,7 @@ jobs:
         docker run --rm -v ${{ github.workspace }}:/workspace stateoftheartio/qt6:6.6-gcc-aqt /bin/bash -c "
         cd /workspace/src && \
         sudo apt update && sudo apt install -y libgl-dev libvulkan-dev && \
-        qt-cmake . -G Ninja -B build && \
+        cmake -G Ninja -B build && \
         cmake --build build --parallel 8"
         
     - name: Upload Artifacts
