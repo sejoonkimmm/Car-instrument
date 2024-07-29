@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Cross-Compile and Deploy
 
 on:
   push:
@@ -13,57 +13,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+    - name: Pull pre-built Docker image
+      run: docker pull stateoftheartio/qt6:6.6-gcc-aqt
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Create Build Directory
-        run: mkdir -p build
-
-      - name: Build Docker Image
-        run: docker build -t rpi-cross-compiler .
-
-      - name: Run Cross-Compilation
-        id: cross_compile
-        run: |
-          docker create --name cross_compiler_container rpi-cross-compiler
-          docker start cross_compiler_container
-          docker logs cross_compiler_container
-          docker stop cross_compiler_container
-
-      - name: Copy Build Artifacts
-        run: |
-          docker cp cross_compiler_container:/build ./build_tmp
-          mv ./build_tmp/* ./build/
-          docker rm cross_compiler_container
-
-      - name: List Files in Build Directory
-        run: ls -l $(pwd)/build
-
-      - name: Compress Build Artifacts
-        run: |
-          tar -czvf build.tar.gz -C build .
-
-      - name: Install Google Cloud SDK
-        run: |
-          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-          sudo apt-get install apt-transport-https ca-certificates -y
-          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-          sudo apt-get update && sudo apt-get install google-cloud-sdk -y
-
-      - name: Upload Artifacts to Google Cloud Storage
-        env:
-          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-          GCS_BUCKET: carinstrument
-          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
-        run: |
-          echo "${{ secrets.GCP_SA_KEY }}" | base64 --decode > ${HOME}/gcp-key.json
-          gcloud auth activate-service-account --key-file=${HOME}/gcp-key.json
-          TIMESTAMP=$(date +%Y%m%d%H%M%S)
-          gsutil cp build.tar.gz gs://${{ secrets.GCS_BUCKET }}/build-${TIMESTAMP}.tar.gz
-          gsutil cp build.tar.gz gs://${{ secrets.GCS_BUCKET }}/latest-build.tar.gz
+    - name: Run cross-compilation
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/workspace stateoftheartio/qt6:6.6-gcc-aqt /bin/bash -c "
+        cd /workspace/src && \
+        sudo apt update && sudo apt install -y libgl-dev libvulkan-dev && \
+        qt-cmake . -G Ninja -B build && \
+        cmake --build build --parallel 8"
+        
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: qt-cross-compiled
+        path: /workspace/src/build
