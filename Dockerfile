@@ -13,8 +13,15 @@ RUN apt-get update && apt-get install -y \
     libgl1-mesa-dev \
     cmake \
     qtbase5-dev \
+    qtdeclarative5-dev \
+    qttools5-dev-tools \
     curl \
-    git
+    git  \
+    patchelf
+
+# Install linuxdeployqt
+RUN curl -sSL -o /usr/local/bin/linuxdeployqt https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-6-x86_64.AppImage && \
+    chmod +x /usr/local/bin/linuxdeployqt
 
 # Set up work directory
 WORKDIR /workspace
