@@ -19,10 +19,6 @@ RUN apt-get update && apt-get install -y \
     git \
     patchelf
 
-# Install linuxdeployqt
-RUN curl -sSL -o /usr/local/bin/linuxdeployqt https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-6-x86_64.AppImage && \
-    chmod +x /usr/local/bin/linuxdeployqt
-
 # Set up work directory
 WORKDIR /workspace
 
@@ -32,8 +28,13 @@ COPY . .
 # Run the build commands with verbose output
 RUN mkdir -p /build && cd /build && cmake -DCMAKE_VERBOSE_MAKEFILE=ON /workspace && make VERBOSE=1
 
-# Use linuxdeployqt to bundle the Qt application
-RUN /usr/local/bin/linuxdeployqt /build/InstrumentCluster -appimage
+# Manually copy Qt libraries
+RUN cd /build && \
+    mkdir -p qtlibs && \
+    for lib in $(ldd InstrumentCluster | grep "=> /" | awk '{print $3}'); do cp -v $lib qtlibs; done
+
+# Set RPATH for the binary
+RUN patchelf --set-rpath '$ORIGIN/qtlibs' /build/InstrumentCluster
 
 # Debug: List files in the build directory after bundling
-RUN ls -l /build
+RUN ls -l /build && ls -l /build/qtlibs
