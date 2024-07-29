@@ -40,6 +40,3 @@ COPY . .
 
 # Run the build commands with verbose output
 RUN mkdir -p /build && cd /build && cmake -DCMAKE_VERBOSE_MAKEFILE=ON /workspace && make VERBOSE=1
-
-# Debug: List files in the build directory after bundling
-RUN ls -l /build && ls -l /build/qtlibs
