@@ -1,0 +1,30 @@
+name: Build Project with Prebuilt Docker Image
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Pull Docker image
+      run: docker pull sejokim/qt_cross:latest
+
+    - name: Build project inside Docker container
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/project -w /project sejokim/qt_cross:latest /bin/bash -c "mkdir -p build && cd build && cmake .. && make"
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: build-artifacts
+        path: build/
