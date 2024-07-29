@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
     qtdeclarative5-dev \
     qttools5-dev-tools \
     curl \
-    git  \
+    git \
     patchelf
 
 # Install linuxdeployqt
@@ -29,8 +29,11 @@ WORKDIR /workspace
 # Copy the source code into the container
 COPY . .
 
-# Run the build commands
+# Run the build commands with verbose output
 RUN mkdir -p /build && cd /build && cmake -DCMAKE_VERBOSE_MAKEFILE=ON /workspace && make VERBOSE=1
 
-# Debug: List files in the build directory after build
-RUN ls -l /build && cat /build/CMakeFiles/CMakeOutput.log
+# Use linuxdeployqt to bundle the Qt application
+RUN /usr/local/bin/linuxdeployqt /build/InstrumentCluster -appimage
+
+# Debug: List files in the build directory after bundling
+RUN ls -l /build
