@@ -27,17 +27,17 @@ jobs:
 
     - name: Build project inside Docker container
       run: |
-        docker run --rm --platform linux/arm64 -v ${{ github.workspace }}:/project sejokim/qt_cross:latest /bin/bash -c "
-          mkdir -p /project/build && \
-          cp -r /project/* /project/build/ && \
-          cd /project/build && \
+        docker run --rm --platform linux/arm64 -v ${{ github.workspace }}:/project -w /project sejokim/qt_cross:latest /bin/bash -c "
+          mkdir -p build && \
+          cp -r /project/* build/ && \
+          cd build && \
           cmake .. && \
           make && \
-          cp /project/build/InstrumentCluster /project/
+          cp InstrumentCluster /project/
         "
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
       with:
         name: build-artifacts
-        path: your_executable
+        path: InstrumentCluster
