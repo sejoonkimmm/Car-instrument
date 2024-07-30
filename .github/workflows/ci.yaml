@@ -39,6 +39,8 @@ jobs:
           find /project -mindepth 1 -maxdepth 1 ! -name build -exec cp -r {} build/ \; && \
           echo 'Contents of /project/build after copy:' && \
           ls -la /project/build && \
+          echo 'Checking for CMakeLists.txt in build directory:' && \
+          ls -l /project/build/CMakeLists.txt && \
           cd build && \
           cmake . && \
           make && \
