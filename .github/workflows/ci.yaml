@@ -46,6 +46,7 @@ jobs:
           cmake . && \
           make && \
           cp InstrumentCluster /project/
+          ldd InstrumentCluster
         "
 
     - name: Upload build artifacts
