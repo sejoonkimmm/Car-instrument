@@ -25,16 +25,9 @@ jobs:
     - name: Pull Docker image
       run: docker pull sejokim/qt_cross:latest
 
-    - name: Build project inside Docker container
+    - name: Start Docker container for debugging
       run: |
-        docker run --rm --platform linux/arm64 -v ${{ github.workspace }}:/project -w /project sejokim/qt_cross:latest /bin/bash -c "
-          mkdir -p build && \
-          find . -path ./build -prune -o -print | cpio -pdm build && \
-          cd build && \
-          cmake .. && \
-          make && \
-          cp InstrumentCluster /project/
-        "
+        docker run --rm --platform linux/arm64 -v ${{ github.workspace }}:/project -w /project -it sejokim/qt_cross:latest /bin/bash
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2
