@@ -40,7 +40,7 @@ jobs:
           echo 'Contents of /project/build after copy:' && \
           ls -la /project/build && \
           cd build && \
-          cmake .. && \
+          cmake . && \
           make && \
           cp InstrumentCluster /project/
         "
