@@ -25,28 +25,15 @@ jobs:
     - name: Pull Docker image
       run: docker pull sejokim/qt_cross:latest
 
-    - name: Ensure correct capitalization of CMakeLists.txt
-      run: |
-        docker run --rm --platform linux/arm64 -v ${{ github.workspace }}:/project -w /project sejokim/qt_cross:latest /bin/bash -c "
-          if [ -f /project/CmakeLists.txt ]; then
-            mv /project/CmakeLists.txt /project/CMakeLists.txt
-          fi
-        "
-
     - name: Build project inside Docker container
       run: |
         docker run --rm --platform linux/arm64 -v ${{ github.workspace }}:/project -w /project sejokim/qt_cross:latest /bin/bash -c "
           mkdir -p build && \
-          find /project -mindepth 1 -maxdepth 1 ! -name build -exec cp -r {} build/ \; && \
-          echo 'Contents of /project/build after copy:' && \
-          ls -la /project/build && \
-          echo 'Checking for CMakeLists.txt in build directory:' && \
-          ls -l /project/build/CMakeLists.txt && \
+          cp -r /project/* build/ && \
           cd build && \
           cmake . && \
           make && \
           cp InstrumentCluster /project/
-          ldd InstrumentCluster
         "
 
     - name: Upload build artifacts
