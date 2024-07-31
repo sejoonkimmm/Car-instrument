@@ -38,10 +38,8 @@ else()
     endif()
 endif()
 
-# 명시적으로 라이브러리를 링크합니다.
 target_link_libraries(InstrumentCluster PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
-# 추가적으로 필요한 라이브러리를 링크합니다.
 target_link_libraries(InstrumentCluster PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Gui
