@@ -1,32 +1,27 @@
-# Stage 1: Setup QEMU and dependencies
-FROM multiarch/qemu-user-static as qemu
+FROM balenalib/raspberrypi4-64-debian:latest
 
-# Stage 2: Build stage
-FROM arm64v8/debian:bookworm
-
-# Copy QEMU from the first stage
-COPY --from=qemu /usr/bin/qemu-aarch64-static /usr/bin/
-
-# Install dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
+    qt5-qmake \
+    qtbase5-dev \
+    qtbase5-dev-tools \
+    qtdeclarative5-dev \
+    qttools5-dev-tools \
+    qtchooser \
+    libqt5opengl5-dev \
+    libqt5svg5-dev \
+    libqt5multimedia5-plugins \
+    libqt5multimedia5 \
+    libqt5multimediawidgets5 \
+    libqt5x11extras5-dev \
+    libegl1-mesa-dev \
+    libgles2-mesa-dev \
     libgl1-mesa-dev \
+    libglu1-mesa-dev \
+    qtmultimedia5-dev \
+    qtbase5-private-dev \
     cmake \
-    qt6-base-dev \
-    qt6-tools-dev \
-    qt6-declarative-dev \
-    qt6-base-dev-tools \
-    curl \
-    git
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Set up work directory
-WORKDIR /workspace
-
-# Copy the source code into the container
-COPY . .
-
-# Run the build commands
-RUN mkdir -p /build && cd /build && cmake /workspace && make
-
-# Debug: List files in the build directory after build
-RUN ls -l /build
+WORKDIR /project
