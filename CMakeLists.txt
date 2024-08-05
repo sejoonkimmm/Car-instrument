@@ -4,7 +4,7 @@ project(instrument-cluster VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.4 REQUIRED COMPONENTS Quick SerialBus)
+find_package(Qt6 6.4 NAMES Qt6 Qt5 REQUIRED COMPONENTS Quick SerialBus)
 
 qt_standard_project_setup()
 
