@@ -11,14 +11,14 @@ Developing a Vehicle Speedometer for the Waveshare PiRacer AI Autonomous Racing 
   - [:purple_heart:  Credits](#microphone--introduction)
 
 ## :loudspeaker:  Introduction
-This project is part of [SEA-ME Study Curriculum](https://github.com/SEA-ME).
+This project is part of [The SEA-ME Study Curriculum](https://github.com/SEA-ME).
 > The PiRacer instrument cluster Qt application project is aimed at creating a real-time speedometer for a PiRacer car. The application will run on a Raspberry Pi and receive speed data from a speed sensor via the in-vehicle communication using Controller Area Network (CAN) protocol. This project will provide an opportunity for students to gain practical experience in software engineering, specifically in the areas of embedded systems, software architecture, and communication protocols. The project will also allow students to gain knowledge of the GUI frameworks (eg. Qt), that are widely used in the automotive industry for developing many embedded applications. The successful completion of this project will demonstrate the students' ability to design and implement a real-world software solution, and their ability to effectively communicate their results.
 
 You will find the full Project Description [here](https://github.com/SEA-ME/DES_Instrument-Cluster)
 
 
 ## :wrench:  Equipments Used
-The following list details the Equipments used for this Project:
+Below is a List showing the Equipments used for this Project:
 
 - Waveshare PiRacer (Standard Edition) [ [OEM Link](https://www.waveshare.com/piracer-ai-kit.htm) ]
 - Raspberry Pi 4 (Model B 8GB RAM) [ [OEM Link](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/) ]
