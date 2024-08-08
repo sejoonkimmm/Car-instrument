@@ -2,7 +2,7 @@
 Developing a Vehicle Speedometer for the Waveshare PiRacer AI Autonomous Racing Robot Car.
 
 ## Index
--
+- Index
   - [:microphone:  Introduction](#microphone--introduction)
 
 ## :microphone:  Introduction
