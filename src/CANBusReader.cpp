@@ -4,19 +4,29 @@
 CANBusReader::CANBusReader(QString interface, QObject *parent)
     : QObject{parent}
 {
-    QString errorString;
-    m_canDevice = QCanBus::instance()->createDevice(
-        CAN_BUS_PLUGIN, interface, &errorString);
-    if (!m_canDevice) {
-        // TODO: Notify of the error
-        qDebug() << errorString;
-        return;
-    } else {
+    if (QCanBus::instance()->plugins().contains(CAN_BUS_PLUGIN)) {
+        QString errorString;
+        m_canDevice = QCanBus::instance()->createDevice(
+            CAN_BUS_PLUGIN, interface, &errorString);
+        if (!m_canDevice) {
+            qDebug() << "couldn't create device";
+            // TODO: Notify of the error
+            qDebug() << errorString;
+            return;
+        } else {
+            qDebug() << "device was created";
+            connect(m_canDevice, &QCanBusDevice::framesReceived, this, &CANBusReader::readCanData);
+        }
+
+        // Connect can bus to interface
         if (!m_canDevice->connectDevice()) {
+            qDebug() << "connection failed";
+            qDebug() << errorString;
             delete m_canDevice;
             m_canDevice = nullptr;
             return;
         }
+        qDebug() << "connection was successful";
     }
 }
 
@@ -29,7 +39,9 @@ CANBusReader::~CANBusReader() {
 
 void CANBusReader::readCanData()
 {
+    qDebug() << "read can data called";
     while (m_canDevice->framesAvailable()) {
+        qDebug() << "frame available";
         QCanBusFrame frame = m_canDevice->readFrame();
         if (frame.isValid() && frame.frameId() == FRAME_ID_SPEED) {
             int speed = static_cast<int>(frame.payload().at(0));
