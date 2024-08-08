@@ -1,12 +1,16 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
+#include "CANBusReader.h"
+
 int main(int argc, char *argv[])
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
     QGuiApplication app(argc, argv);
+
+    qmlRegisterType<CANBusReader>("InstrumentCluster", 1, 0, "CANBusReader");
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));

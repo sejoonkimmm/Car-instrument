@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
+import InstrumentCluster 1.0
 
 Window {
     id: root
@@ -9,6 +10,9 @@ Window {
     visible: true
     title: qsTr("Instrument Cluster")
 
+    CANBusReader {
+        id: canBusReader
+    }
 
     Rectangle {
         id: gauge
