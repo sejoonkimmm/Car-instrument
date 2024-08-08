@@ -4,7 +4,7 @@ Developing a Vehicle Speedometer for the Waveshare PiRacer AI Autonomous Racing 
 ## Index
 - Index
   - [:loudspeaker:  Introduction](#microphone--introduction)
-  - [:wrench:  Equipments Used](#wrench--equipments used)
+  - [:wrench:  Equipments Used](#wrench--equipments-used)
   - [:memo:  Documentations](#memo--documentations)
   - [:pushpin:  How to Use](#microphone--introduction)
   - [:oncoming_automobile:  Our Final Product in Action](#microphone--introduction)
