@@ -20,13 +20,13 @@ You will find the full Project Description [here](https://github.com/SEA-ME/DES_
 ## :wrench:  Architectural Requirements
 The following list is a detail of the Architectural Requirements of this Project's Foundation:
 
-- Waveshare PiRacer
-- Raspberr
--
--
--
--
--
+- Waveshare PiRacer (Standard Edition)
+- Raspberry Pi 4 (Model B 8GB RAM)
+- SEEED Studio 2-Channel MCP2518FD CAN-BUS(FD) HAT for Raspberry Pi
+- Arduino UNO (#Todo: This will be changed to Nano after Project is complete)
+- SEEED Studio CAN-Bus Shield (V2) for Arduino
+- 32GB SanDisk Micro SD Card
+- #Todo: Add more tools used in the project
 
 
 
