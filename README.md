@@ -4,8 +4,8 @@ Developing a Vehicle Speedometer for the Waveshare PiRacer AI Autonomous Racing 
 ## Index
 - Index
   - [:loudspeaker:  Introduction](#microphone--introduction)
-  - [:wrench:  Equipments Used](#microphone--introduction)
-  - [:memo:  Documentations](#microphone--introduction)
+  - [:wrench:  Equipments Used](#wrench--equipments used)
+  - [:memo:  Documentations](#memo--documentations)
   - [:pushpin:  How to Use](#microphone--introduction)
   - [:oncoming_automobile:  Our Final Product in Action](#microphone--introduction)
   - [:purple_heart:  Credits](#microphone--introduction)
@@ -27,6 +27,9 @@ Below is a List showing the Equipments used for this Project:
 - SEEED Studio CAN-Bus Shield (V2) for Arduino (#Todo: This will probably be changed to the smaller Module) [ [OEM Link](https://www.seeedstudio.com/CAN-BUS-Shield-V2.html) ]
 - 32GB SanDisk Micro SD Card
 - #Todo: Add more tools used in the project
+
+
+## :memo:  Documentations
 
 
 
