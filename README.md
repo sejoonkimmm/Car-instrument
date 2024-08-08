@@ -3,7 +3,7 @@ Developing a Vehicle Speedometer for the Waveshare PiRacer AI Autonomous Racing 
 
 ## Index
 - Index
-  - [:microphone:  Introduction](#microphone--introduction)
+  - [:loudspeaker:  Introduction](#microphone--introduction)
 
 ## :microphone:  Introduction
 This project is part of [SEA-ME Project](https://github.com/SEA-ME).
