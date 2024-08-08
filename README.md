@@ -17,15 +17,15 @@ This project is part of [SEA-ME Project](https://github.com/SEA-ME).
 You will find the full Project Description [here](https://github.com/SEA-ME/DES_Instrument-Cluster)
 
 
-## :wrench:  Architectural Requirements
-The following list is a detail of the Architectural Requirements of this Project's Foundation:
+## :wrench:  Equipments
+The following list details the Equipments used for this Project:
 
-- Waveshare PiRacer (Standard Edition)
-- Raspberry Pi 4 (Model B 8GB RAM)
-- SEEED Studio 2-Channel MCP2518FD CAN-BUS(FD) HAT for Raspberry Pi
-- Arduino UNO (#Todo: This will be changed to Nano after Project is complete)
-- SEEED Studio CAN-Bus Shield (V2) for Arduino
-- 32GB SanDisk Micro SD Card
+- Waveshare PiRacer (Standard Edition) [OEM Link](https://www.waveshare.com/piracer-ai-kit.htm)
+- Raspberry Pi 4 (Model B 8GB RAM) [OEM Link](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/)
+- SEEED Studio 2-Channel MCP2518FD CAN-BUS(FD) HAT for Raspberry Pi [OEM Link](https://www.seeedstudio.com/CAN-BUS-FD-HAT-for-Raspberry-Pi-p-4742.html)
+- Arduino UNO Rev3 (#Todo: This will be changed to Nano after Project is complete) [OEM Link](https://store.arduino.cc/products/arduino-uno-rev3)
+- SEEED Studio CAN-Bus Shield (V2) for Arduino [OEM Link]()
+- 32GB SanDisk Micro SD Card [OEM Link]()
 - #Todo: Add more tools used in the project
 
 
