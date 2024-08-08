@@ -7,9 +7,8 @@ Developing a Vehicle Speedometer for the Waveshare PiRacer AI Autonomous Racing 
   - [:loudspeaker:  Introduction](#loudspeaker--introduction)
   - [:wrench:  Equipments Used](#wrench--equipments-used)
   - [:memo:  Documentations](#memo--documentations)
-  - [:pushpin:  How to Use](#microphone--introduction)
-  - [:oncoming_automobile:  Our Final Product in Action](#microphone--introduction)
-  - [:purple_heart:  Credits](#microphone--introduction)
+  - [:oncoming_automobile:  Our Final Product in Action](#oncoming_automobile--our-final-product-in-action)
+  - [:purple_heart:  Credits](#purple_heart--credits)
 
 
 ## :loudspeaker:  Introduction
@@ -36,5 +35,10 @@ Below is a List showing the Equipments used for this Project:
 - #Todo: Add more Readme's in the [`/docs/`](/docs/) directory and then link to them from here
 
 
+## :oncoming_automobile:  Our Final Product in Action
+#Todo: Ideally a video should be embedded here showing our Piracer in action when after the Project has been completed.
 
+
+## :purple_heart:  Credits
+#Todo: Ideally every member of the Team should use this Section to add their preferred People/Organization that deserves to be given credit after we've completed this Project.
 
