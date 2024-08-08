@@ -10,6 +10,9 @@ Developing a Vehicle Speedometer for the Waveshare PiRacer AI Autonomous Racing 
   - [:oncoming_automobile:  Our Final Product in Action](#oncoming_automobile--our-final-product-in-action)
   - [:purple_heart:  Credits](#purple_heart--credits)
 
+<br />
+<br />
+<br />
 
 ## :loudspeaker:  Introduction
 This project is part of [The SEA-ME Study Curriculum](https://github.com/SEA-ME).
@@ -17,7 +20,6 @@ This project is part of [The SEA-ME Study Curriculum](https://github.com/SEA-ME)
 
 You will find the full Project Description [here](https://github.com/SEA-ME/DES_Instrument-Cluster)
 
-<br />
 <br />
 <br />
 <br />
