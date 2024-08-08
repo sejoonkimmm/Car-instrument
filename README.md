@@ -39,7 +39,7 @@ Below is a List showing the Equipments used for this Project:
 <br />
 
 ## :memo:  Documentations
-- [Workflow.md](https://github.com/)
+- [Workflow.md](/docs/Workflow.md)
 - #Todo: Add more Readme's in the [`/docs/`](/docs/) directory and then link to them from here
 
 <br />
