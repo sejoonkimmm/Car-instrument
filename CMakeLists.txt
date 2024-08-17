@@ -16,6 +16,7 @@ set(PROJECT_SOURCES
         src/main.cpp
         src/qml.qrc
         src/CANBusReader.h src/CANBusReader.cpp
+        src/Speedometer.h src/Speedometer.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
