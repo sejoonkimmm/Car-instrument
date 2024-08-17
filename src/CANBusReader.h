@@ -21,7 +21,7 @@ public slots:
 
 private:
     QCanBusDevice *m_canDevice = nullptr;
-    const quint32 FRAME_ID_SPEED = 0x123;
+    const quint32 FRAME_ID_SPEED = 0x021;
     const QString CAN_BUS_PLUGIN = "socketcan";
 };
 
