@@ -1,6 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
-import InstrumentCluster 1.0
+import QtQuick.Shapes 2.15
 
 Window {
     id: root
@@ -10,30 +10,26 @@ Window {
     visible: true
     title: qsTr("Instrument Cluster")
 
-    CANBusReader {
-        id: canBusReader
-    }
-
+    // outer circle
     Rectangle {
         id: gauge
         width: 360
         height: 360
 
-        color: "#ff0000"
+        color: root.color
 
         anchors.centerIn: parent
         radius: width/2
-
         border {
-            width: 10
-            // color: "#000000"
+            width: 5
         }
 
+        // center circle
         Rectangle {
             id: gaugeCenterDot
 
-            width: 20
-            height: 20
+            width: 40
+            height: 40
 
             color: "#000000"
 
@@ -42,28 +38,47 @@ Window {
             radius: width/2
         }
 
-        Rectangle {
+        // needle
+        Shape {
             id: needle
-
-            width: 160
-            height: 10
-
-            color: "#000000"
             anchors {
+                centerIn: parent
                 bottom: parent.verticalCenter
                 bottomMargin: -(gaugeCenterDot.width / 4)
                 right: parent.horizontalCenter
             }
-
             transformOrigin: Item.Right
-            rotation: -30
+            rotation: -30 + speedometer.newSpeed
 
-            SequentialAnimation on rotation {
-                PropertyAnimation {
-                    from: -30
-                    to: 210
-                    duration: 5000
+            Behavior on rotation {
+                NumberAnimation {
+                    duration: 1000
+                    easing.type: Easing.Bezier
                 }
+            }
+
+            ShapePath {
+                strokeWidth: 0
+                fillColor: "#000000"
+                strokeColor: "#000000"
+
+                startX: 0; startY: -(gaugeCenterDot.width / 4)
+
+                PathLine {
+                    x: -140
+                    y: 0
+                }
+
+                PathLine {
+                    x: 0
+                    y: (gaugeCenterDot.width / 4)
+                }
+            }
+        }
+
+        Shape {
+            anchors {
+                centerIn: parent
             }
         }
 
@@ -73,15 +88,31 @@ Window {
           return degrees * (pi/180)
         }
 
+        // major ticks
         Repeater {
             model: 9
             Rectangle {
-                width: 30
-                height: 10
-                x: (parent.width / 2) + (180 * Math.sin(parent.degreesToRadians(-60 - index * 30)))
-                y: (parent.height / 2) + (180 * Math.cos(parent.degreesToRadians(-60 - index * 30))) - (needle.height/2)
+                id: majorTick
+                width: 20
+                height: 2
+                x: (parent.width / 2) + (175 * Math.sin(parent.degreesToRadians(-60 - index * 30)))
+                y: (parent.height / 2) + (175 * Math.cos(parent.degreesToRadians(-60 - index * 30))) - (majorTick.height/2)
                 transformOrigin: Item.Left
                 rotation: -30 + index * 30
+            }
+        }
+
+        // minor ticks
+        Repeater {
+            model: 40
+            Rectangle {
+                visible: index % 5 !== 0
+                width: 10
+                height: 1
+                x: (parent.width / 2) + (175 * Math.sin(parent.degreesToRadians(-60 - index * 6)))
+                y: (parent.height / 2) + (175 * Math.cos(parent.degreesToRadians(-60 - index * 6)))
+                transformOrigin: Item.Left
+                rotation: -30 + index * 6
             }
         }
     }
