@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     qttools5-dev-tools \
     qtchooser \
     libqt5opengl5-dev \
+	libqt5serialbus5-dev \
     libqt5svg5-dev \
     libqt5multimedia5-plugins \
     libqt5multimedia5 \
