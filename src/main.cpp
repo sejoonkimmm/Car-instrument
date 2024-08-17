@@ -1,7 +1,9 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 
 #include "CANBusReader.h"
+#include "Speedometer.h"
 
 int main(int argc, char *argv[])
 {
@@ -10,7 +12,16 @@ int main(int argc, char *argv[])
 #endif
     QGuiApplication app(argc, argv);
 
-    qmlRegisterType<CANBusReader>("InstrumentCluster", 1, 0, "CANBusReader");
+    CANBusReader reader("can0");
+    Speedometer speedometer;
+
+    QObject::connect(&reader, &CANBusReader::newData, [=](int speed) {
+        double circumference = 2 * M_PI * 3.35;
+        double rps = static_cast<double>(speed) / 20;
+        double speedCmPerSec = circumference * rps;
+        qDebug() << speedCmPerSec << " cm/s";
+    });
+    QObject::connect(&reader, &CANBusReader::newData, &speedometer, &Speedometer::setSpeed);
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
@@ -24,6 +35,9 @@ int main(int argc, char *argv[])
         },
         Qt::QueuedConnection);
     engine.load(url);
+
+    QQmlContext* rootContext = engine.rootContext();
+    rootContext->setContextProperty("speedometer", &speedometer);
 
     return app.exec();
 }
