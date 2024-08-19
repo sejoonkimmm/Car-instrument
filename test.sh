@@ -1,4 +1,5 @@
 #!/bin/bash
+#
 
 docker pull sejokim/qt_cross:latest
 
