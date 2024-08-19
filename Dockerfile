@@ -21,6 +21,8 @@ RUN apt-get update && apt-get install -y \
     qtmultimedia5-dev \
     qtbase5-private-dev \
     cmake \
+    libqt5serialbus5-dev \
+    libqt5serialbus5 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
