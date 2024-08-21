@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QtMath>
 
 #include "CANBusReader.h"
 #include "Speedometer.h"
