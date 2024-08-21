@@ -1,5 +1,6 @@
 #include "Speedometer.h"
 #include <QDebug>
+#include <QtMath>
 
 Speedometer::Speedometer(QObject *parent)
     : QObject{parent}, m_newSpeed(0.0)
