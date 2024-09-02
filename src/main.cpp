@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 #endif
     QGuiApplication app(argc, argv);
 
-    CANBusReader reader("can0");
+    CANBusReader reader("can10"); // changed this value from 0 to 10
     Speedometer speedometer;
 
     QObject::connect(&reader, &CANBusReader::newData, [=](int speed) {
@@ -25,6 +25,10 @@ int main(int argc, char *argv[])
     QObject::connect(&reader, &CANBusReader::newData, &speedometer, &Speedometer::setSpeed);
 
     QQmlApplicationEngine engine;
+
+    QQmlContext* rootContext = engine.rootContext();
+    rootContext->setContextProperty("speedometer", &speedometer);
+
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(
         &engine,
@@ -37,8 +41,7 @@ int main(int argc, char *argv[])
         Qt::QueuedConnection);
     engine.load(url);
 
-    QQmlContext* rootContext = engine.rootContext();
-    rootContext->setContextProperty("speedometer", &speedometer);
+    // do stuffs like threading here
 
     return app.exec();
 }
