@@ -23,7 +23,17 @@ RUN apt-get update && apt-get install -y \
     cmake \
     libqt5serialbus5-dev \
     libqt5serialbus5 \
+    qml-module-qtquick-shapes \
+    qml-module-qtquick-controls2 \
+    qml-module-qtquick-layouts \
+    libqt5quick5 \
+    libqt5qml5 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /project
+
+# set environment variables
+ENV QT_QPA_PLATFORM=offscreen
+ENV QML2_IMPORT_PATH=/usr/lib/aarch64-linux-gnu/qt5/qml
+ENV QT_PLUGIN_PATH=/usr/lib/aarch64-linux-gnu/qt5/plugins
