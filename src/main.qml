@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
-import QtQuick.Shapes 2.15
+// import QtQuick.Window 2.15 // this was uncommented out and replaced with below line before it worked on my Qt
+import QtQuick.Shapes 1.0
 
 Window {
     id: root
@@ -9,6 +10,19 @@ Window {
     color: "#36454F"
     visible: true
     title: qsTr("Instrument Cluster")
+    flags: Qt.FramelessWindowHint
+
+    // Battery Component
+    BatteryIcon {
+        id: batteryIcon
+        iconSize: 30
+        iconColor: "#63E6BE"
+        level: 4
+        anchors.left: parent.left
+        anchors.leftMargin: 8
+        anchors.top: parent.top
+        anchors.topMargin: 5
+    }
 
     // outer circle
     Rectangle {
