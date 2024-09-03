@@ -1,9 +1,9 @@
 import QtQuick 2.15
 
 Item {
-    property string iconColor
-    property int iconSize: 32 // in pixel
-    property int level // 0-4 levels
+    property string iconColor   // so wie CSS
+    property int iconSize: 32   // in pixel
+    property int level          // 0-4 levels
 
     function getUnicode()
     {
@@ -18,7 +18,7 @@ Item {
         else if (level == 4)
             return "\uf240" // fa-battery-full
         else
-            return "\ue0b1" // fa-battery-empty
+            return "\ue0b1" // fa-battery-error
     }
 
     Text {
@@ -29,5 +29,5 @@ Item {
         text: getUnicode()
     }
 
-    FontLoader { id: fontAwesome; source: "qrc:/fontawesome-webfont.ttf" }
+    FontLoader { id: fontAwesome; source: "qrc:/BatteryIcon.ttf" }
 }

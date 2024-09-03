@@ -12,16 +12,24 @@ Window {
     title: qsTr("Instrument Cluster")
     flags: Qt.FramelessWindowHint
 
-    // Battery Component
+    // Battery Icon Component
     BatteryIcon {
         id: batteryIcon
         iconSize: 30
         iconColor: "#63E6BE"
-        level: 4
+        level: (batteryIconObj.isPercent / 24) // dividing by 24 because we want 96-100 to be == 4(full bar)
         anchors.left: parent.left
         anchors.leftMargin: 8
         anchors.top: parent.top
         anchors.topMargin: 5
+    }
+    Text {
+        color: "white"
+        text: batteryIconObj.isPercent
+        anchors.left: batteryIcon.right
+        anchors.leftMargin: 13
+        anchors.top: batteryIcon.bottom
+        anchors.topMargin: 8
     }
 
     // outer circle
