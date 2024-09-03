@@ -5,6 +5,7 @@
 
 #include "CANBusReader.h"
 #include "Speedometer.h"
+#include "BatteryIcon.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -13,8 +14,9 @@ int main(int argc, char *argv[])
 #endif
     QGuiApplication app(argc, argv);
 
-    CANBusReader reader("can10"); // changed this value from 0 to 10
-    Speedometer speedometer;
+    CANBusReader    reader("can10"); // changed this value from 0 to 10
+    Speedometer     speedometer;
+    BatteryIcon     batteryIcon(&app);
 
     QObject::connect(&reader, &CANBusReader::newData, [=](int speed) {
         double circumference = 2 * M_PI * 3.35;
@@ -25,9 +27,9 @@ int main(int argc, char *argv[])
     QObject::connect(&reader, &CANBusReader::newData, &speedometer, &Speedometer::setSpeed);
 
     QQmlApplicationEngine engine;
-
     QQmlContext* rootContext = engine.rootContext();
     rootContext->setContextProperty("speedometer", &speedometer);
+    rootContext->setContextProperty("batteryIconObj", &batteryIcon);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(

@@ -2,6 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>BatteryIcon.qml</file>
-        <file>fontawesome-webfont.ttf</file>
+        <file>BatteryIcon.ttf</file>
     </qresource>
 </RCC>

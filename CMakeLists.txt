@@ -38,6 +38,7 @@ else()
     else()
         add_executable(InstrumentCluster
           ${PROJECT_SOURCES}
+          src/BatteryIcon.hpp src/BatteryIcon.cpp
         )
     endif()
 endif()
