@@ -15,7 +15,7 @@ Window {
     // Battery Icon Component
     BatteryIcon {
         id: batteryIcon
-        iconSize: 30
+        iconSize: 35
         iconColor: "#63E6BE"
         level: (batteryIconObj.isPercent / 24) // dividing by 24 because we want 96-100 to be == 4(full bar)
         anchors.left: parent.left
@@ -29,7 +29,7 @@ Window {
         anchors.left: batteryIcon.right
         anchors.leftMargin: 12
         anchors.top: batteryIcon.bottom
-        anchors.topMargin: 5
+        anchors.topMargin: 4
     }
 
     // outer circle
