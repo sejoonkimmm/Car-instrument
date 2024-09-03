@@ -27,9 +27,9 @@ Window {
         color: "white"
         text: batteryIconObj.isPercent
         anchors.left: batteryIcon.right
-        anchors.leftMargin: 13
+        anchors.leftMargin: 12
         anchors.top: batteryIcon.bottom
-        anchors.topMargin: 8
+        anchors.topMargin: 5
     }
 
     // outer circle
