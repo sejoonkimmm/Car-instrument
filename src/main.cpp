@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 #endif
     QGuiApplication app(argc, argv);
 
-    CANBusReader    reader("can10"); // changed this value from 0 to 10
+    CANBusReader    reader("can0"); // changed this value from 0 to 10
     Speedometer     speedometer;
     BatteryIcon     batteryIcon(&app);
 
