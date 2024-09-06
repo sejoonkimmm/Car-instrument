@@ -3,6 +3,8 @@
 #include <QQmlContext>
 #include <QtMath>
 
+// #include <pthread.h>
+
 #include "CANBusReader.h"
 #include "Speedometer.h"
 #include "BatteryIcon.hpp"
@@ -44,6 +46,8 @@ int main(int argc, char *argv[])
     engine.load(url);
 
     // do stuffs like threading here
+    // pthread_t tid1;
+    // pthread_t tid2;
 
     return app.exec();
 }

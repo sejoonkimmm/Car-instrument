@@ -10,7 +10,7 @@ Window {
     color: "#36454F"
     visible: true
     title: qsTr("Instrument Cluster")
-    flags: Qt.FramelessWindowHint
+    //flags: Qt.FramelessWindowHint
 
     // Battery Icon Component
     BatteryIcon {

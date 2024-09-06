@@ -43,6 +43,9 @@ else()
     endif()
 endif()
 
+target_compile_options(InstrumentCluster PUBLIC -fPIC)
+target_link_options(InstrumentCluster PUBLIC ina219.so -Wl,-rpath=.)
+
 target_link_libraries(InstrumentCluster
   PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::SerialBus)
 
