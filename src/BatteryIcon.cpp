@@ -2,7 +2,7 @@
 
 BatteryIcon::BatteryIcon(QObject *parent) :
                                 QObject{parent},
-                                _percent{96}, // 96 is just a test value. Will be set to 100 on completion
+                                _percent{96} // 96 is just a test value. Will be set to 100 on completion
 {
     _battTimerId = startTimer(2000);
 }
