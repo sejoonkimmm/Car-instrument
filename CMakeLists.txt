@@ -17,6 +17,7 @@ set(PROJECT_SOURCES
         src/qml.qrc
         src/CANBusReader.h src/CANBusReader.cpp
         src/Speedometer.h src/Speedometer.cpp
+        src/BatteryIcon.hpp src/BatteryIcon.cpp
         src/INA219.h
 )
 
@@ -39,7 +40,6 @@ else()
     else()
         add_executable(InstrumentCluster
           ${PROJECT_SOURCES}
-          src/BatteryIcon.hpp src/BatteryIcon.cpp
         )
     endif()
 endif()
