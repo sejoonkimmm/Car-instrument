@@ -45,10 +45,10 @@ else()
 endif()
 
 target_compile_options(InstrumentCluster PUBLIC -fPIC)
-target_link_options(InstrumentCluster PUBLIC -Wl,-rpath=.)
+target_link_options(InstrumentCluster PUBLIC -L./src -Wl,-rpath=.)
 
 target_link_libraries(InstrumentCluster
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::SerialBus src/ina219.so)
+  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::SerialBus ina219.so)
 
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
