@@ -17,6 +17,8 @@ set(PROJECT_SOURCES
         src/qml.qrc
         src/CANBusReader.h src/CANBusReader.cpp
         src/Speedometer.h src/Speedometer.cpp
+        src/BatteryIcon.hpp src/BatteryIcon.cpp
+        src/INA219.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -38,13 +40,16 @@ else()
     else()
         add_executable(InstrumentCluster
           ${PROJECT_SOURCES}
-          src/BatteryIcon.hpp src/BatteryIcon.cpp
         )
     endif()
 endif()
 
+target_compile_options(InstrumentCluster PUBLIC -fPIC)
+target_link_options(InstrumentCluster PUBLIC -L./src/ -Wl,-rpath=.)
+
 target_link_libraries(InstrumentCluster
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::SerialBus)
+  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::SerialBus ina219)
+
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
