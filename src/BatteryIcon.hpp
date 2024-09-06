@@ -9,7 +9,10 @@
 #include <stdio.h>
 #include <cstdint>
 
-#include "INA219.h" // Dynamic Shared Lib
+extern "C"
+{
+#include "INA219.h"
+}
 
 #define BI_MAX_ARR_SIZE 30
 
