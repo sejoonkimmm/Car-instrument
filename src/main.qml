@@ -19,9 +19,9 @@ Window {
         iconColor: "#63E6BE"
         level: (batteryIconObj.isPercent / 24) // dividing by 24 because we want 96-100 to be == 4(full bar)
         anchors.left: parent.left
-        anchors.leftMargin: 8
+        anchors.leftMargin: 9
         anchors.top: parent.top
-        anchors.topMargin: 5
+        anchors.topMargin: 7
     }
     Text {
         color: "white"
