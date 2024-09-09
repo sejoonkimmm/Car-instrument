@@ -10,8 +10,6 @@ BatteryIcon::BatteryIcon(QObject *parent) :
     if ( ina219_begin_txv() ) {
       qDebug() << "Failed to initialize INA219";
     }
-  
-    qDebug() << "BatteryIcon object was created";
 }
 
 BatteryIcon::~BatteryIcon() {
@@ -68,24 +66,20 @@ void BatteryIcon::refreshPercent(uint8_t & _percent) {
         // reset count
         _count = 0;
 
-        _percent = mostOccuringBattData & 0b11111111;
+        qDebug() << "mostOccuringBattData: " << mostOccuringBattData;
 
     }
 
-    qDebug() << "refreshPercent Called line2" << _count << " | " ;
     // retrieve one battery status data from ina219,
     // and store to _rawBattData[]
     if ( ! ina219_getRawBattData( &_rawBattData[_count] ) ) {
         ++_count;
-        // _percent += 1;
     } else {
     #ifdef DEBUG_EN
         printf("%s\n", "failure to read");
     #endif
     }
 
-    qDebug() << "refreshPercent Called line3" << _count << " | " ;
     // refresh the UI
     emit isPercentChanged();
-    qDebug() << "refreshPercent Called line4" << _count << " | " ;
 }
