@@ -49,7 +49,7 @@ void BatteryIcon::setPercent(uint8_t & percent) {
   * @returns void
   */
 void BatteryIcon::timerEvent(QTimerEvent *event) {
-    this->refreshPercent(_percent);
+    refreshPercent();
 }
 
 /**
