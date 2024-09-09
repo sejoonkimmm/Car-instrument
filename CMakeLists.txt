@@ -45,7 +45,7 @@ else()
 endif()
 
 target_compile_options(InstrumentCluster PUBLIC -fPIC)
-target_link_options(InstrumentCluster PUBLIC -L./src -Wl,-rpath=.)
+target_link_options(InstrumentCluster PUBLIC -L./drivers -Wl,-rpath=.)
 
 target_link_libraries(InstrumentCluster
   PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::SerialBus ina219)

@@ -19,17 +19,17 @@ Window {
         iconColor: "#63E6BE"
         level: (batteryIconObj.isPercent / 24) // dividing by 24 because we want 96-100 to be == 4(full bar)
         anchors.left: parent.left
-        anchors.leftMargin: 9
+        anchors.leftMargin: 8
         anchors.top: parent.top
-        anchors.topMargin: 7
+        anchors.topMargin: 5
     }
     Text {
         color: "white"
         text: batteryIconObj.isPercent
         anchors.left: batteryIcon.right
-        anchors.leftMargin: 12
+        anchors.leftMargin: 13
         anchors.top: batteryIcon.bottom
-        anchors.topMargin: 4
+        anchors.topMargin: 5
     }
 
     // outer circle

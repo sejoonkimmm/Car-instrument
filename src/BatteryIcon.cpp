@@ -6,9 +6,11 @@ BatteryIcon::BatteryIcon(QObject *parent) :
 {
     _battTimerId = startTimer(2000);
 
-    // init transmission with both I2C Bus and Chip Address
+    // init half-duplex transmission between I2C Bus and INA219
     if ( ina219_begin_txv() ) {
-      qDebug() << "Failed to initialize INA219";
+        #ifdef DEBUG_EN
+        qDebug() << "Failed to initialize INA219";
+        #endif
     }
 }
 
@@ -16,15 +18,48 @@ BatteryIcon::~BatteryIcon() {
     killTimer(_battTimerId);
 }
 
+
+        // **************************************
+        //          GETTER METHODS BEGINS       *
+        // **************************************
+uint8_t BatteryIcon::isPercent() const {
+    return _percent;
+}
+        // **************************************
+        //          GETTER METHODS ENDS         *
+        // **************************************
+
+
+        // **************************************
+        //          SETTER METHODS BEGINS       *
+        // **************************************
+void BatteryIcon::setPercent(uint8_t & percent) {
+    _percent = percent:
+
+    emit isPercentChanged();
+}
+        // **************************************
+        //          SETTER METHODS ENDS         *
+        // **************************************
+
+
+/**
+  * Just a timerEvent
+  * @param as Specified by MAN
+  * @returns void
+  */
 void BatteryIcon::timerEvent(QTimerEvent *event) {
     this->refreshPercent(_percent);
 }
 
-uint8_t BatteryIcon::isPercent() const {
-    return _percent;
-}
-
-uint16_t getLowestMostOccuring(uint16_t * arr, uint8_t len, uint16_t cutOff) {
+/**
+  * Gets the most occuring element from * arr. If
+  * more than 1, takes the element with lower value
+  * @param *arr pointer to the array
+  * @param len length of the array
+  * @returns uint16_t most occuring element
+  */
+static uint16_t getLowestMostOccuring(uint16_t * arr, uint8_t len, uint16_t cutOff) {
     // Insert all elements in hash Table
     // using format element=>frequency
     // Also, filter out junks using cutOff
@@ -51,11 +86,13 @@ uint16_t getLowestMostOccuring(uint16_t * arr, uint8_t len, uint16_t cutOff) {
     return res;
 }
 
-// A pseudo setter but it's arg is default which
-// is only there coz Q_PROPERTY requires WRITE to
-// have one arg. We dont use it because it gets
-// the value from the battery data
-void BatteryIcon::refreshPercent(uint8_t & _percent) {
+/**
+  *
+  * Q_PROPERTY requires WRITE to have one arg
+  * @param
+  * @returns void
+  */
+void BatteryIcon::refreshPercent() {
     // Check if _rawBattData[] is filled.
     // Update the batt status for UI if yes
     if (_count >= BI_MAX_ARR_SIZE) {
@@ -75,7 +112,7 @@ void BatteryIcon::refreshPercent(uint8_t & _percent) {
         ++_count;
     } else {
     #ifdef DEBUG_EN
-        printf("%s\n", "failure to read");
+        qDebug() << "failure to read voltage from INA219";
     #endif
     }
 
