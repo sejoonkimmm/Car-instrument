@@ -56,7 +56,6 @@ uint16_t getLowestMostOccuring(uint16_t * arr, uint8_t len, uint16_t cutOff) {
 // have one arg. We dont use it because it gets
 // the value from the battery data
 void BatteryIcon::refreshPercent(uint8_t & _percent) {
-    qDebug() << "refreshPercent Called" << _count << " | " ;
     // Check if _rawBattData[] is filled.
     // Update the batt status for UI if yes
     if (_count >= BI_MAX_ARR_SIZE) {
