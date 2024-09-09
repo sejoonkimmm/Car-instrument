@@ -6,7 +6,7 @@ BatteryIcon::BatteryIcon(QObject *parent) :
 {
     _battTimerId = startTimer(2000);
 
-  // init transmission with both I2C Bus and Chip Address
+    // init transmission with both I2C Bus and Chip Address
     if ( ina219_begin_txv() ) {
       qDebug() << "Failed to initialize INA219";
     }
@@ -67,6 +67,8 @@ void BatteryIcon::refreshPercent(uint8_t & _percent) {
 
         // reset count
         _count = 0;
+
+        _percent = mostOccuringBattData & 0b11111111;
 
     }
 
