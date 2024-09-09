@@ -34,7 +34,7 @@ uint8_t BatteryIcon::isPercent() const {
         //          SETTER METHODS BEGINS       *
         // **************************************
 void BatteryIcon::setPercent(uint8_t & percent) {
-    _percent = percent:
+    _percent = percent;
 
     emit isPercentChanged();
 }
