@@ -6,7 +6,7 @@
 #endif
 
 #include <QObject>
-#include <stdio.h>
+#include <QDebug>
 #include <cstdint>
 #include <unordered_map>
 
