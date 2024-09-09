@@ -6,9 +6,11 @@ BatteryIcon::BatteryIcon(QObject *parent) :
 {
     _battTimerId = startTimer(2000);
 
-    // init transmission with both I2C Bus and Chip Address
+    // init half-duplex transmission between I2C Bus and INA219
     if ( ina219_begin_txv() ) {
-      qDebug() << "Failed to initialize INA219";
+        #ifdef DEBUG_EN
+        qDebug() << "Failed to initialize INA219";
+        #endif
     }
 }
 
@@ -16,21 +18,56 @@ BatteryIcon::~BatteryIcon() {
     killTimer(_battTimerId);
 }
 
-void BatteryIcon::timerEvent(QTimerEvent *event) {
-    this->refreshPercent(_percent);
-}
 
+        // **************************************
+        //          GETTER METHODS BEGINS       *
+        // **************************************
 uint8_t BatteryIcon::isPercent() const {
     return _percent;
 }
+        // **************************************
+        //          GETTER METHODS ENDS         *
+        // **************************************
 
-uint16_t getLowestMostOccuring(uint16_t * arr, uint8_t len, uint16_t cutOff) {
+
+        // **************************************
+        //          SETTER METHODS BEGINS       *
+        // **************************************
+void BatteryIcon::setPercent(uint8_t & percent) {
+    _percent = percent;
+
+    emit isPercentChanged();
+}
+        // **************************************
+        //          SETTER METHODS ENDS         *
+        // **************************************
+
+
+/**
+  * Just a timerEvent
+  * @param as Specified by MAN
+  * @returns void
+  */
+void BatteryIcon::timerEvent(QTimerEvent *event) {
+    refreshPercent();
+}
+
+/**
+  * Gets the most occuring element from * arr. If
+  * more than 1, takes the element with lower value
+  * @param *arr pointer to the array
+  * @param len length of the array
+  * @param cutOff any element whose value is lower
+  ** than cutOff will not be considered.
+  * @returns uint16_t most occuring element
+  */
+static uint16_t getLowestMostOccuring(uint16_t * arr, uint8_t len, uint16_t cutOff) {
     // Insert all elements in hash Table
     // using format element=>frequency
     // Also, filter out junks using cutOff
     std::unordered_map<uint16_t, uint8_t> myHash;
     for (uint8_t i = 0; i < len; i++) {
-        if(arr[i] > cutOff) {
+        if(arr[i] >= cutOff) {
             myHash[arr[i]]++;
         }
     }
@@ -51,22 +88,39 @@ uint16_t getLowestMostOccuring(uint16_t * arr, uint8_t len, uint16_t cutOff) {
     return res;
 }
 
-// A pseudo setter but it's arg is default which
-// is only there coz Q_PROPERTY requires WRITE to
-// have one arg. We dont use it because it gets
-// the value from the battery data
-void BatteryIcon::refreshPercent(uint8_t & _percent) {
+/**
+  * Converts the output parameter to a percentage value.
+  * @param the 16bit value read from INA219 as bus voltage.
+  * @returns uint8_t the output converted to percentage.
+  */
+static uint8_t outputToPercent(uint16_t output) {
+    return (output - LOWEST_BATT_INA > 0) ?
+               (output - LOWEST_BATT_INA) / ONE_PERCENT_INA : 0;
+}
+
+/**
+  * Does the Heart of the Task
+  * @param
+  * @returns void
+  */
+void BatteryIcon::refreshPercent() {
     // Check if _rawBattData[] is filled.
     // Update the batt status for UI if yes
     if (_count >= BI_MAX_ARR_SIZE) {
+        // Get the most occuring value from the 30 elements stored in _rawBattData
+        uint16_t mostOccuringBattData = getLowestMostOccuring(_rawBattData,
+                                                              BI_MAX_ARR_SIZE,
+                                                              LOWEST_BATT_INA);
+
         // call functions to perform percentage calculation and store data to _percent
-        uint16_t mostOccuringBattData = getLowestMostOccuring(_rawBattData, BI_MAX_ARR_SIZE, 10000);
+        _percent = outputToPercent(mostOccuringBattData);
 
         // reset count
         _count = 0;
 
+        #ifdef DEBUG_EN
         qDebug() << "mostOccuringBattData: " << mostOccuringBattData;
-
+        #endif
     }
 
     // retrieve one battery status data from ina219,
@@ -75,7 +129,7 @@ void BatteryIcon::refreshPercent(uint8_t & _percent) {
         ++_count;
     } else {
     #ifdef DEBUG_EN
-        printf("%s\n", "failure to read");
+        qDebug() << "failure to read voltage from INA219";
     #endif
     }
 
