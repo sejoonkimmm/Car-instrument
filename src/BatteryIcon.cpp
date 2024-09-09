@@ -55,7 +55,7 @@ void BatteryIcon::refreshPercent(uint8_t & _percent) {
     // Update the batt status for UI if yes
     if (_count >= BI_MAX_ARR_SIZE) {
         // call functions to perform percentage calculation and store data to _percent
-        uint16_t mostOccuringBattData = getLowestMostOccuring(_rawBattData, BI_MAX_ARR_SIZE, 20000)
+        uint16_t mostOccuringBattData = getLowestMostOccuring(_rawBattData, BI_MAX_ARR_SIZE, 20000);
         printf("%s, %i\n", "read:", mostOccuringBattData);
 
         // reset count
