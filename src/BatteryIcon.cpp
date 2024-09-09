@@ -102,8 +102,9 @@ void BatteryIcon::refreshPercent() {
         // reset count
         _count = 0;
 
+        #ifdef DEBUG_EN
         qDebug() << "mostOccuringBattData: " << mostOccuringBattData;
-
+        #endif
     }
 
     // retrieve one battery status data from ina219,
