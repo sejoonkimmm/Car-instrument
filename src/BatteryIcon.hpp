@@ -15,6 +15,9 @@ extern "C"
 }
 
 #define BI_MAX_ARR_SIZE 30
+#define LOWEST_BATT_INA 17035                                   // Lowest value from INA219 before PiRacer die out
+#define ONE_PERCENT_INA ((65535 - LOWEST_BATT_INA) / 100)
+
 
 class BatteryIcon : public QObject
 {
