@@ -121,6 +121,7 @@ static uint8_t outputToPercent(uint16_t output) {
   * @returns void
   */
 void BatteryIcon::refreshPercent() {
+    qDebug() << "_count: " << _count;
     // Check if _rawBattData[] is filled.
     // Update the batt status for UI if yes
     if (_count >= BI_MAX_ARR_SIZE) {
