@@ -2,8 +2,13 @@
 
 BatteryIcon::BatteryIcon(QObject *parent) :
                                 QObject{parent},
-                                _percent{97} // 96 is just a test value. Will be set to 100 on completion
+                                _percent{0},
+                                _battTimerId{0},
+                                _count{0},
+                                _fd{0}
+
 {
+    // start the timer
     _battTimerId = startTimer(2000);
 
     // init half-duplex transmission between I2C Bus and INA219
@@ -12,10 +17,22 @@ BatteryIcon::BatteryIcon(QObject *parent) :
         qDebug() << "Failed to initialize INA219";
         #endif
     }
+
+    // open the file for storing last known battery charge
+    _fd = open("lastKnownCharge", O_RDWR | O_CREAT, 0640);
+
+    // get the last known charge if exist
+    if (_fd != -1) {
+        read(_fd, &_percent, 1);
+    }
 }
 
 BatteryIcon::~BatteryIcon() {
+    // close the timer
     killTimer(_battTimerId);
+
+    // close the fd
+    close(_fd);
 }
 
 
@@ -104,6 +121,7 @@ static uint8_t outputToPercent(uint16_t output) {
   * @returns void
   */
 void BatteryIcon::refreshPercent() {
+    qDebug() << "_count: " << _count;
     // Check if _rawBattData[] is filled.
     // Update the batt status for UI if yes
     if (_count >= BI_MAX_ARR_SIZE) {
@@ -115,12 +133,17 @@ void BatteryIcon::refreshPercent() {
         // call functions to perform percentage calculation and store data to _percent
         _percent = outputToPercent(mostOccuringBattData);
 
+        // store the last known charge
+        if (_fd != -1) {
+            write(_fd, &_percent, 1);
+        }
+
         // reset count
         _count = 0;
 
-        #ifdef DEBUG_EN
+        // #ifdef DEBUG_EN
         qDebug() << "mostOccuringBattData: " << mostOccuringBattData;
-        #endif
+        // #endif
     }
 
     // retrieve one battery status data from ina219,
