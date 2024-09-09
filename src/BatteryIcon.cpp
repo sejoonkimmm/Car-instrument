@@ -5,6 +5,7 @@ BatteryIcon::BatteryIcon(QObject *parent) :
                                 _percent{95} // 96 is just a test value. Will be set to 100 on completion
 {
     _battTimerId = startTimer(2000);
+    qDebug() << "BatteryIcon object was created";
 }
 
 BatteryIcon::~BatteryIcon() {
@@ -51,18 +52,15 @@ uint16_t getLowestMostOccuring(uint16_t * arr, uint8_t len, uint16_t cutOff) {
 // have one arg. We dont use it because it gets
 // the value from the battery data
 void BatteryIcon::refreshPercent(uint8_t & _percent) {
+    qDebug() << "refreshPercent Called" << _count << " | " ;
     // Check if _rawBattData[] is filled.
     // Update the batt status for UI if yes
     if (_count >= BI_MAX_ARR_SIZE) {
         // call functions to perform percentage calculation and store data to _percent
         uint16_t mostOccuringBattData = getLowestMostOccuring(_rawBattData, BI_MAX_ARR_SIZE, 20000);
-        // printf("%s, %i\n", "read:", mostOccuringBattData);
 
         // reset count
         _count = 0;
-
-        // test
-        _percent = mostOccuringBattData & 0b11111111;
 
     }
 
