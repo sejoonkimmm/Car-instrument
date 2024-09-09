@@ -8,6 +8,7 @@
 #include <QObject>
 #include <stdio.h>
 #include <cstdint>
+#include <unordered_map>
 
 extern "C"
 {
