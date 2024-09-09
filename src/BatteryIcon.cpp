@@ -64,6 +64,7 @@ void BatteryIcon::refreshPercent(uint8_t & _percent) {
 
     }
 
+    qDebug() << "refreshPercent Called line2" << _count << " | " ;
     // retrieve one battery status data from ina219,
     // and store to _rawBattData[]
     if ( ! ina219_getRawBattData( &_rawBattData[_count] ) ) {
@@ -75,6 +76,8 @@ void BatteryIcon::refreshPercent(uint8_t & _percent) {
     #endif
     }
 
+    qDebug() << "refreshPercent Called line3" << _count << " | " ;
     // refresh the UI
     emit isPercentChanged();
+    qDebug() << "refreshPercent Called line4" << _count << " | " ;
 }
