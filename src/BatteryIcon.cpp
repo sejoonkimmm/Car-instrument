@@ -13,6 +13,7 @@ BatteryIcon::~BatteryIcon() {
 
 void BatteryIcon::timerEvent(QTimerEvent *event) {
     this->refreshPercent(_percent);
+    printf("%s\n", "refreshPercent() called");
 }
 
 uint8_t BatteryIcon::isPercent() const {
