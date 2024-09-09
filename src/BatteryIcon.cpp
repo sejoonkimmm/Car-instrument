@@ -5,7 +5,7 @@ BatteryIcon::BatteryIcon(QObject *parent) :
                                 _percent{0},
                                 _battTimerId{0},
                                 _count{0},
-                                _fd{0},
+                                _fd{0}
 
 {
     // start the timer
