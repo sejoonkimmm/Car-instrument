@@ -5,6 +5,12 @@ BatteryIcon::BatteryIcon(QObject *parent) :
                                 _percent{95} // 96 is just a test value. Will be set to 100 on completion
 {
     _battTimerId = startTimer(2000);
+
+  // init transmission with both I2C Bus and Chip Address
+    if ( ina219_begin_txv() ) {
+      qDebug() << "Failed to initialize INA219";
+    }
+  
     qDebug() << "BatteryIcon object was created";
 }
 
