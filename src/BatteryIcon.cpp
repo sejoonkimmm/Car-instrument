@@ -2,7 +2,7 @@
 
 BatteryIcon::BatteryIcon(QObject *parent) :
                                 QObject{parent},
-                                _percent{95} // 96 is just a test value. Will be set to 100 on completion
+                                _percent{97} // 96 is just a test value. Will be set to 100 on completion
 {
     _battTimerId = startTimer(2000);
 
@@ -60,7 +60,7 @@ void BatteryIcon::refreshPercent(uint8_t & _percent) {
     // Update the batt status for UI if yes
     if (_count >= BI_MAX_ARR_SIZE) {
         // call functions to perform percentage calculation and store data to _percent
-        uint16_t mostOccuringBattData = getLowestMostOccuring(_rawBattData, BI_MAX_ARR_SIZE, 20000);
+        uint16_t mostOccuringBattData = getLowestMostOccuring(_rawBattData, BI_MAX_ARR_SIZE, 10000);
 
         // reset count
         _count = 0;
