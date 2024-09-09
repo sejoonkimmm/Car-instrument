@@ -1,9 +1,9 @@
 #ifndef BATTERYICON_HPP
 #define BATTERYICON_HPP
 
-#ifdef DEBUG_EN
+// #ifdef DEBUG_EN
 #include <QDebug>
-#endif
+// #endif
 
 #include <QObject>
 #include <cstdint>
