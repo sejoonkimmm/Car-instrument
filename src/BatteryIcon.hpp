@@ -8,6 +8,8 @@
 #include <QObject>
 #include <cstdint>
 #include <unordered_map>
+#include <fcntl.h>
+#include <unistd.h>
 
 extern "C"
 {
@@ -44,10 +46,11 @@ protected:
 
 private:
     uint8_t     _percent;           // Battery status converted to output in percentage, ready to be displayed to user
+    int         _battTimerId;       // used for the interval timer
+    uint8_t     _count;             // For counting the size of _rawBattData
+    int         _fd;                // for storing the last known battery charge level
 
-    int         _battTimerId;                   // used for the interval timer
     uint16_t    _rawBattData[BI_MAX_ARR_SIZE];  // array holding the 16 bit data representing Voltage as retrieved directly from the INA219 chip
-    uint8_t     _count;                         // For counting the size of _rawBattData
 };
 
 #endif // BATTERYICON_HPP

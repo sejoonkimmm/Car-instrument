@@ -29,7 +29,7 @@ Window {
         anchors.left: batteryIcon.right
         anchors.leftMargin: 13
         anchors.top: batteryIcon.bottom
-        anchors.topMargin: 5
+        anchors.topMargin: 6
     }
 
     // outer circle
