@@ -19,13 +19,15 @@ CANBusReader::CANBusReader(QString interface, QObject *parent)
         } else {
             qDebug() << "device was created";
             const auto pp = m_canDevice->state();
-            qDebug() << pp::UnconnectedState;
-            qDebug() << pp->UnconnectedState;
-            qDebug() << UnconnectedState;
-            // connect(m_canDevice, &QCanBusDevice::framesReceived, this, &CANBusReader::readCanData);
+            qDebug() << pp << " first";
+            connect(m_canDevice, &QCanBusDevice::framesReceived, this, &CANBusReader::readCanData);
+            pp = m_canDevice->state();
+            qDebug() << pp << " second";
             connect(m_canDevice, &QCanBusDevice::errorOccurred, this, &MainWindow::processErrors);
             connect(m_canDevice, &QCanBusDevice::framesReceived, this, &MainWindow::processReceivedFrames);
             connect(m_canDevice, &QCanBusDevice::framesWritten, this, &MainWindow::processFramesWritten);
+            pp = m_canDevice->state();
+            qDebug() << pp << " third";
         }
 
         QString errorString0;
