@@ -16,8 +16,12 @@ CANBusReader::CANBusReader(QString interface, QObject *parent)
             qDebug() << errorString0;
         else {
             qDebug() << "Available interfaces";
-            foreach(auto &x, devices)
-                qDebug()<<x.name();
+            foreach(auto &x, devices) {
+                qDebug()<< "name: " << x.name();
+                qDebug()<< "alias: " << x.alias();
+                qDebug()<< "channel(): " << x.channel();
+                qDebug()<< "serialNumber() " << x.serialNumber();
+            }
         }
 
 
