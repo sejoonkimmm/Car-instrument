@@ -2,7 +2,10 @@
 #include <QDebug>
 
 CANBusReader::CANBusReader(QString interface, QObject *parent)
-    : QObject{parent}
+    : QObject{parent},
+    m_canDevice{nullptr},
+    FRAME_ID_SPEED{0x21},
+    CAN_BUS_PLUGIN{"socketcan"}
 {
     if (QCanBus::instance()->plugins().contains(CAN_BUS_PLUGIN)) {
         QString errorString;
@@ -15,10 +18,28 @@ CANBusReader::CANBusReader(QString interface, QObject *parent)
             return;
         } else {
             qDebug() << "device was created";
+            const auto pp = m_canDevice->state();
+            qDebug() << pp::UnconnectedState;
+            qDebug() << pp->UnconnectedState;
+            qDebug() << UnconnectedState;
             // connect(m_canDevice, &QCanBusDevice::framesReceived, this, &CANBusReader::readCanData);
-            connect(m_canDevice->get(), &QCanBusDevice::errorOccurred, this, &MainWindow::processErrors);
-            connect(m_canDevice->get(), &QCanBusDevice::framesReceived, this, &MainWindow::processReceivedFrames);
-            connect(m_canDevice->get(), &QCanBusDevice::framesWritten, this, &MainWindow::processFramesWritten);
+            connect(m_canDevice, &QCanBusDevice::errorOccurred, this, &MainWindow::processErrors);
+            connect(m_canDevice, &QCanBusDevice::framesReceived, this, &MainWindow::processReceivedFrames);
+            connect(m_canDevice, &QCanBusDevice::framesWritten, this, &MainWindow::processFramesWritten);
+        }
+
+        QString errorString0;
+        const QList<QCanBusDeviceInfo> devices = QCanBus::instance()->availableDevices(
+            QStringLiteral("socketcan"), &errorString0);
+        if (!errorString0.isEmpty())
+            qDebug() << errorString0;
+        else {
+            qDebug() << "Available interfaces";
+            foreach(auto &x, devices) {
+                qDebug()<< "name: " << x.name();
+                qDebug()<< "channel(): " << x.channel();
+                qDebug()<< "serialNumber() " << x.serialNumber();
+            }
         }
 
         // Connect can bus to interface
