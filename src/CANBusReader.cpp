@@ -18,16 +18,22 @@ CANBusReader::CANBusReader(QString interface, QObject *parent)
             return;
         } else {
             qDebug() << "device was created";
-            const auto pp = m_canDevice->state();
-            qDebug() << pp << " first";
-            connect(m_canDevice, &QCanBusDevice::framesReceived, this, &CANBusReader::readCanData);
-            const auto pp2 = m_canDevice->state();
-            qDebug() << pp2 << " second";
-            connect(m_canDevice, &QCanBusDevice::errorOccurred, this, &MainWindow::processErrors);
-            connect(m_canDevice, &QCanBusDevice::framesReceived, this, &MainWindow::processReceivedFrames);
-            connect(m_canDevice, &QCanBusDevice::framesWritten, this, &MainWindow::processFramesWritten);
-            const auto pp3 = m_canDevice->state();
-            qDebug() << pp3 << " third";
+            // connect(m_canDevice, &QCanBusDevice::framesReceived, this, &CANBusReader::readCanData);
+
+
+            QCanBusDevice::Filter filter;
+            QList<QCanBusDevice::Filter> filterList;
+
+            filter.frameId = 0x21;
+            filter.frameIdMask = 0xFF;
+            filter.format = QCanBusDevice::Filter::MatchExtendedFormat;
+            filter.type = QCanBusFrame::DataFrame;
+            filterList.append(filter);
+
+            m_canDevice->setConfigurationParameter(QCanBusDevice::RawFilterKey, QVariant::fromValue(filterList));
+
+            m_canDevice->setConfigurationParameter(QCanBusDevice::BitRateKey, QVariant(250000));
+
         }
 
         QString errorString0;
