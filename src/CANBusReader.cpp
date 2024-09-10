@@ -17,7 +17,7 @@ CANBusReader::CANBusReader(QString interface, QObject *parent)
         else {
             qDebug() << "Available interfaces";
             foreach(auto &x, devices)
-                qDebug()<<x;
+                qDebug()<<x.name();
         }
 
 
