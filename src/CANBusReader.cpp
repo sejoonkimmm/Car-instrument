@@ -5,7 +5,7 @@ CANBusReader::CANBusReader(QString interface, QObject *parent)
     : QObject{parent},
     m_canDevice{nullptr},
     FRAME_ID_SPEED{0x21},
-    CAN_BUS_PLUGIN{"socketcan"}
+    CAN_BUS_PLUGIN{"vectorcan"}
 {
     if (QCanBus::instance()->plugins().contains(CAN_BUS_PLUGIN)) {
         QString errorString;
