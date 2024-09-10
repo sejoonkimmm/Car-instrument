@@ -1,30 +1,10 @@
 #include "CANBusReader.h"
 #include <QDebug>
 
-// interface = "can10"
 CANBusReader::CANBusReader(QString interface, QObject *parent)
-    : QObject{parent},
-    m_canDevice{nullptr},
-    FRAME_ID_SPEED{0x21},
-    CAN_BUS_PLUGIN{"socketcan"}
+    : QObject{parent}
 {
     if (QCanBus::instance()->plugins().contains(CAN_BUS_PLUGIN)) {
-        QString errorString0;
-        const QList<QCanBusDeviceInfo> devices = QCanBus::instance()->availableDevices(
-            QStringLiteral("socketcan"), &errorString0);
-        if (!errorString0.isEmpty())
-            qDebug() << errorString0;
-        else {
-            qDebug() << "Available interfaces";
-            foreach(auto &x, devices) {
-                qDebug()<< "name: " << x.name();
-                qDebug()<< "channel(): " << x.channel();
-                qDebug()<< "serialNumber() " << x.serialNumber();
-            }
-        }
-
-
-
         QString errorString;
         m_canDevice = QCanBus::instance()->createDevice(
             CAN_BUS_PLUGIN, interface, &errorString);
@@ -35,7 +15,10 @@ CANBusReader::CANBusReader(QString interface, QObject *parent)
             return;
         } else {
             qDebug() << "device was created";
-            connect(m_canDevice, &QCanBusDevice::framesReceived, this, &CANBusReader::readCanData);
+            // connect(m_canDevice, &QCanBusDevice::framesReceived, this, &CANBusReader::readCanData);
+            connect(m_canDevice->get(), &QCanBusDevice::errorOccurred, this, &MainWindow::processErrors);
+            connect(m_canDevice->get(), &QCanBusDevice::framesReceived, this, &MainWindow::processReceivedFrames);
+            connect(m_canDevice->get(), &QCanBusDevice::framesWritten, this, &MainWindow::processFramesWritten);
         }
 
         // Connect can bus to interface
