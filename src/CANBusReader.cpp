@@ -38,7 +38,7 @@ CANBusReader::CANBusReader(QString interface, QObject *parent)
 
         QString errorString0;
         const QList<QCanBusDeviceInfo> devices = QCanBus::instance()->availableDevices(
-            QStringLiteral("socketcan"), &errorString0);
+            QStringLiteral("vectorcan"), &errorString0);
         if (!errorString0.isEmpty())
             qDebug() << errorString0;
         else {
@@ -58,6 +58,7 @@ CANBusReader::CANBusReader(QString interface, QObject *parent)
             m_canDevice = nullptr;
             return;
         }
+        connect(m_canDevice, &QCanBusDevice::framesReceived, this, &CANBusReader::readCanData)
         qDebug() << "connection was successful";
     }
 }
