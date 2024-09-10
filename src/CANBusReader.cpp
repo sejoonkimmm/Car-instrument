@@ -1,10 +1,27 @@
 #include "CANBusReader.h"
 #include <QDebug>
 
+// interface = "can10"
 CANBusReader::CANBusReader(QString interface, QObject *parent)
-    : QObject{parent}
+    : QObject{parent},
+    m_canDevice{nullptr},
+    FRAME_ID_SPEED{0x21},
+    CAN_BUS_PLUGIN{"socketcan"}
 {
     if (QCanBus::instance()->plugins().contains(CAN_BUS_PLUGIN)) {
+        QString errorString0;
+        const QList<QCanBusDeviceInfo> devices = QCanBus::instance()->availableDevices(
+            QStringLiteral("socketcan"), &errorString0);
+        if (!errorString0.isEmpty())
+            qDebug() << errorString0;
+        else {
+            qDebug() << "Available interfaces";
+            foreach(auto &x, devices)
+                qDebug()<<x.name();
+        }
+
+
+
         QString errorString;
         m_canDevice = QCanBus::instance()->createDevice(
             CAN_BUS_PLUGIN, interface, &errorString);

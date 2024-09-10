@@ -10,7 +10,7 @@ class CANBusReader : public QObject
 {
     Q_OBJECT
 public:
-    explicit CANBusReader(QString interface = "vcan0", QObject *parent = nullptr);
+    explicit CANBusReader(QString interface = "can10", QObject *parent = nullptr);
     ~CANBusReader();
 
 signals:
@@ -20,9 +20,9 @@ public slots:
     void readCanData();
 
 private:
-    QCanBusDevice *m_canDevice = nullptr;
-    const quint32 FRAME_ID_SPEED = 0x021;
-    const QString CAN_BUS_PLUGIN = "socketcan";
+    QCanBusDevice *m_canDevice; // = nullptr;
+    const quint32 FRAME_ID_SPEED; // = 0x021;
+    const QString CAN_BUS_PLUGIN; // = "socketcan";
 };
 
 #endif // CANBUSREADER_H
