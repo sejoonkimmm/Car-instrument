@@ -13,7 +13,7 @@ CANBusReader::CANBusReader(QString interface, QObject *parent)
         const QList<QCanBusDeviceInfo> devices = QCanBus::instance()->availableDevices(
             QStringLiteral("socketcan"), &errorString0);
         if (!errorString0.isEmpty())
-            qDebug() << errorString;
+            qDebug() << errorString0;
         else {
             qDebug() << "Available interfaces";
             qDebug() << devices ;
