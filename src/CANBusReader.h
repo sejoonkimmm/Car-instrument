@@ -10,7 +10,7 @@ class CANBusReader : public QObject
 {
     Q_OBJECT
 public:
-    explicit CANBusReader(QString interface = "spi0.0", QObject *parent = nullptr);
+    explicit CANBusReader(QString interface = "can10", QObject *parent = nullptr);
     ~CANBusReader();
 
 signals:

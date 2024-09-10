@@ -1,7 +1,6 @@
 #include "CANBusReader.h"
 #include <QDebug>
 
-// interface = "can10"
 CANBusReader::CANBusReader(QString interface, QObject *parent)
     : QObject{parent},
     m_canDevice{nullptr},
@@ -9,6 +8,34 @@ CANBusReader::CANBusReader(QString interface, QObject *parent)
     CAN_BUS_PLUGIN{"socketcan"}
 {
     if (QCanBus::instance()->plugins().contains(CAN_BUS_PLUGIN)) {
+        QString errorString;
+        m_canDevice = QCanBus::instance()->createDevice(
+            CAN_BUS_PLUGIN, interface, &errorString);
+        if (!m_canDevice) {
+            qDebug() << "couldn't create device";
+            // TODO: Notify of the error
+            qDebug() << errorString;
+            return;
+        } else {
+            qDebug() << "device was created";
+            // connect(m_canDevice, &QCanBusDevice::framesReceived, this, &CANBusReader::readCanData);
+
+
+            QCanBusDevice::Filter filter;
+            QList<QCanBusDevice::Filter> filterList;
+
+            filter.frameId = 0x21;
+            filter.frameIdMask = 0xFF;
+            filter.format = QCanBusDevice::Filter::MatchExtendedFormat;
+            filter.type = QCanBusFrame::DataFrame;
+            filterList.append(filter);
+
+            m_canDevice->setConfigurationParameter(QCanBusDevice::RawFilterKey, QVariant::fromValue(filterList));
+
+            m_canDevice->setConfigurationParameter(QCanBusDevice::BitRateKey, QVariant(250000));
+
+        }
+
         QString errorString0;
         const QList<QCanBusDeviceInfo> devices = QCanBus::instance()->availableDevices(
             QStringLiteral("socketcan"), &errorString0);
@@ -21,21 +48,6 @@ CANBusReader::CANBusReader(QString interface, QObject *parent)
                 qDebug()<< "channel(): " << x.channel();
                 qDebug()<< "serialNumber() " << x.serialNumber();
             }
-        }
-
-
-
-        QString errorString;
-        m_canDevice = QCanBus::instance()->createDevice(
-            CAN_BUS_PLUGIN, interface, &errorString);
-        if (!m_canDevice) {
-            qDebug() << "couldn't create device";
-            // TODO: Notify of the error
-            qDebug() << errorString;
-            return;
-        } else {
-            qDebug() << "device was created";
-            connect(m_canDevice, &QCanBusDevice::framesReceived, this, &CANBusReader::readCanData);
         }
 
         // Connect can bus to interface
