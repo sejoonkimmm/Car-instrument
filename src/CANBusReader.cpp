@@ -21,13 +21,13 @@ CANBusReader::CANBusReader(QString interface, QObject *parent)
             const auto pp = m_canDevice->state();
             qDebug() << pp << " first";
             connect(m_canDevice, &QCanBusDevice::framesReceived, this, &CANBusReader::readCanData);
-            pp = m_canDevice->state();
-            qDebug() << pp << " second";
+            const auto pp2 = m_canDevice->state();
+            qDebug() << pp2 << " second";
             connect(m_canDevice, &QCanBusDevice::errorOccurred, this, &MainWindow::processErrors);
             connect(m_canDevice, &QCanBusDevice::framesReceived, this, &MainWindow::processReceivedFrames);
             connect(m_canDevice, &QCanBusDevice::framesWritten, this, &MainWindow::processFramesWritten);
-            pp = m_canDevice->state();
-            qDebug() << pp << " third";
+            const auto pp3 = m_canDevice->state();
+            qDebug() << pp3 << " third";
         }
 
         QString errorString0;
