@@ -32,7 +32,7 @@ CANBusReader::CANBusReader(QString interface, QObject *parent)
 
             m_canDevice->setConfigurationParameter(QCanBusDevice::RawFilterKey, QVariant::fromValue(filterList));
 
-            m_canDevice->setConfigurationParameter(QCanBusDevice::BitRateKey, QVariant(250000));
+            m_canDevice->setConfigurationParameter(QCanBusDevice::BitRateKey, QVariant(500000));
 
         }
 
