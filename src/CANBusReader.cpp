@@ -36,30 +36,31 @@ CANBusReader::CANBusReader(QString interface, QObject *parent)
 
         }
 
-        QString errorString0;
-        const QList<QCanBusDeviceInfo> devices = QCanBus::instance()->availableDevices(
-            QStringLiteral("socketcan"), &errorString0);
-        if (!errorString0.isEmpty())
-            qDebug() << errorString0;
-        else {
-            qDebug() << "Available interfaces";
-            foreach(auto &x, devices) {
-                qDebug()<< "name: " << x.name();
-                qDebug()<< "channel(): " << x.channel();
-                qDebug()<< "serialNumber() " << x.serialNumber();
-            }
-        }
+        // QString errorString0;
+        // const QList<QCanBusDeviceInfo> devices = QCanBus::instance()->availableDevices(
+        //     QStringLiteral("socketcan"), &errorString0);
+        // if (!errorString0.isEmpty())
+        //     qDebug() << errorString0;
+        // else {
+        //     qDebug() << "Available interfaces";
+        //     foreach(auto &x, devices) {
+        //         qDebug()<< "name: " << x.name();
+        //         qDebug()<< "channel(): " << x.channel();
+        //         qDebug()<< "serialNumber() " << x.serialNumber();
+        //     }
+        // }
 
         // Connect can bus to interface
         if (!m_canDevice->connectDevice()) {
             qDebug() << "connection failed";
-            qDebug() << errorString;
+            qDebug() << errorString.data();
             delete m_canDevice;
             m_canDevice = nullptr;
             return;
+        } else {
+            connect(m_canDevice, &QCanBusDevice::framesReceived, this, &CANBusReader::readCanData);
+            qDebug() << "connection was successful";
         }
-        connect(m_canDevice, &QCanBusDevice::framesReceived, this, &CANBusReader::readCanData);
-        qDebug() << "connection was successful";
     }
 }
 
