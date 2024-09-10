@@ -58,7 +58,7 @@ CANBusReader::CANBusReader(QString interface, QObject *parent)
             m_canDevice = nullptr;
             return;
         }
-        connect(m_canDevice, &QCanBusDevice::framesReceived, this, &CANBusReader::readCanData)
+        connect(m_canDevice, &QCanBusDevice::framesReceived, this, &CANBusReader::readCanData);
         qDebug() << "connection was successful";
     }
 }
