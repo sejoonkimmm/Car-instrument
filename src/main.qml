@@ -11,7 +11,7 @@ Window {
     color: "transparent"
     visible: true
     title: qsTr("Instrument Cluster")
-    //flags: Qt.FramelessWindowHint
+    flags: Qt.FramelessWindowHint
     
     Image {
         id: bgImage
