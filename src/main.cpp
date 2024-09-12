@@ -3,8 +3,6 @@
 #include <QQmlContext>
 #include <QtMath>
 
-// #include <pthread.h>
-
 #include "CANBusReader.h"
 #include "Speedometer.h"
 #include "BatteryIcon.hpp"
@@ -16,7 +14,7 @@ int main(int argc, char *argv[])
 #endif
     QGuiApplication app(argc, argv);
 
-    CANBusReader    reader("can0"); // changed this value from 0 to 10
+    CANBusReader    reader("can10");
     Speedometer     speedometer;
     BatteryIcon     batteryIcon(&app);
 
@@ -43,11 +41,8 @@ int main(int argc, char *argv[])
                 QCoreApplication::exit(-1);
         },
         Qt::QueuedConnection);
-    engine.load(url);
 
-    // do stuffs like threading here
-    // pthread_t tid1;
-    // pthread_t tid2;
+    engine.load(url);
 
     return app.exec();
 }
