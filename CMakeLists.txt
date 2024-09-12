@@ -74,3 +74,6 @@ if(QT_VERSION_MAJOR EQUAL 6)
     qt_import_qml_plugins(InstrumentCluster)
     qt_finalize_executable(InstrumentCluster)
 endif()
+
+#-I/usr/include/aarch64-linux-gnu/qt5 -I/usr/include/aarch64-linux-gnu/qt5/QtWidgets -I/usr/include/aarch64-linux-gnu/qt5/QtGui -I/usr/include/aarch64-linux-gnu/qt5/QtSerialBus -I/usr/include/aarch64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/aarch64-linux-gnu/qt5/mkspecs/linux-aarch64-gnu-g++
+
