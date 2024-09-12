@@ -44,6 +44,7 @@ Below is a List showing the Equipments used for this Project:
 - [Setting Environment](/docs/environment.md)
 - [How Configure Github Action CI/CD](https://github.com/sejoonkimmm/Car-instrument/wiki/How-Configure-Cross-compile-on-Github-action---Docker%3F)
 - [CAN Communication Setup](/docs/CAN_Communication.md)
+- [Getting The Battery Level](/docs/Battery_Level.md)
 - #Todo: Add more Readme's in the [`/docs/`](/docs/) directory and then link to them from here
 
 <br />
