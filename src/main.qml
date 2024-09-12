@@ -7,10 +7,17 @@ Window {
     id: root
     width: 1280
     height: 400
-    color: "#36454F"
+    //color: "#36454F"
+    color: "transparent"
     visible: true
     title: qsTr("Instrument Cluster")
     //flags: Qt.FramelessWindowHint
+    
+    Image {
+        id: bgImage
+        anchors.fill: line
+        source: "qrc:/image/car.jpg"
+    }
 
     // Battery Icon Component
     BatteryIcon {
@@ -38,13 +45,14 @@ Window {
         width: 360
         height: 360
 
-        color: root.color
+        //color: root.color
+        color: "transparent"
 
         anchors.centerIn: parent
         radius: width/2
-        border {
-            width: 5
-        }
+        //border {
+          //  width: 5
+        //}
 
         // center circle
         Rectangle {
@@ -53,7 +61,8 @@ Window {
             width: 40
             height: 40
 
-            color: "#000000"
+            //color: "#000000"
+            color: "red"
 
             anchors.centerIn: parent
 
@@ -81,8 +90,10 @@ Window {
 
             ShapePath {
                 strokeWidth: 0
-                fillColor: "#000000"
-                strokeColor: "#000000"
+                //fillColor: "#000000"
+                fillColor: "red"
+                //strokeColor: "#000000"
+                strokeColor: "red"
 
                 startX: 0; startY: -(gaugeCenterDot.width / 4)
 
@@ -111,31 +122,31 @@ Window {
         }
 
         // major ticks
-        Repeater {
-            model: 9
-            Rectangle {
-                id: majorTick
-                width: 20
-                height: 2
-                x: (parent.width / 2) + (175 * Math.sin(parent.degreesToRadians(-60 - index * 30)))
-                y: (parent.height / 2) + (175 * Math.cos(parent.degreesToRadians(-60 - index * 30))) - (majorTick.height/2)
-                transformOrigin: Item.Left
-                rotation: -30 + index * 30
-            }
-        }
+        //Repeater {
+        //    model: 9
+        //    Rectangle {
+        //        id: majorTick
+        //        width: 20
+        //        height: 2
+        //        x: (parent.width / 2) + (175 * Math.sin(parent.degreesToRadians(-60 - index * 30)))
+        //        y: (parent.height / 2) + (175 * Math.cos(parent.degreesToRadians(-60 - index * 30))) - (majorTick.height/2)
+        //        transformOrigin: Item.Left
+        //        rotation: -30 + index * 30
+        //    }
+        //}
 
         // minor ticks
-        Repeater {
-            model: 40
-            Rectangle {
-                visible: index % 5 !== 0
-                width: 10
-                height: 1
-                x: (parent.width / 2) + (175 * Math.sin(parent.degreesToRadians(-60 - index * 6)))
-                y: (parent.height / 2) + (175 * Math.cos(parent.degreesToRadians(-60 - index * 6)))
-                transformOrigin: Item.Left
-                rotation: -30 + index * 6
-            }
-        }
+        //Repeater {
+        //    model: 40
+        //    Rectangle {
+        //        visible: index % 5 !== 0
+        //        width: 10
+        //        height: 1
+        //        x: (parent.width / 2) + (175 * Math.sin(parent.degreesToRadians(-60 - index * 6)))
+        //        y: (parent.height / 2) + (175 * Math.cos(parent.degreesToRadians(-60 - index * 6)))
+        //        transformOrigin: Item.Left
+        //        rotation: -30 + index * 6
+        //    }
+        //}
     }
 }
