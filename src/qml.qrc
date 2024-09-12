@@ -3,5 +3,6 @@
         <file>main.qml</file>
         <file>BatteryIcon.qml</file>
         <file>BatteryIcon.ttf</file>
+        <file>image/car.jpg</file>
     </qresource>
 </RCC>
