@@ -55,6 +55,50 @@ Below is a List showing the Equipments used for this Project:
 <br />
 <br />
 
+
+## Tech Stack 🛠
+
+<table>
+  <tr>
+    <td align="center" width="96">
+      <a href="https://www.raspberrypi.org/">
+        <img src="https://www.raspberrypi.org/app/uploads/2018/03/RPi-Logo-Reg-SCREEN.png" width="48" height="48" alt="Raspberry Pi" />
+      </a>
+      <br>Raspberry Pi
+    </td>
+    <td align="center" width="96">
+      <a href="https://www.linux.org/">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg" width="48" height="48" alt="Linux" />
+      </a>
+      <br>Linux
+    </td>
+    <td align="center" width="96">
+      <a href="https://www.docker.com/">
+        <img src="https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png" width="48" height="48" alt="Docker" />
+      </a>
+      <br>Docker
+    </td>
+    <td align="center" width="96">
+      <a href="https://github.com/features/actions">
+        <img src="https://github.githubassets.com/images/modules/site/features/actions-icon-actions.svg" width="48" height="48" alt="GitHub Actions" />
+      </a>
+      <br>GitHub Actions
+    </td>
+    <td align="center" width="96">
+      <a href="https://www.arduino.cc/">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Arduino_Logo.svg" width="48" height="48" alt="Arduino" />
+      </a>
+      <br>Arduino
+    </td>
+    <td align="center" width="96">
+      <a href="https://www.qt.io/">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Qt_logo_2016.svg" width="48" height="48" alt="C++ (Qt)" />
+      </a>
+      <br>C++ (Qt)
+    </td>
+  </tr>
+</table>
+
 ## :purple_heart:  Credits
 #Todo: Ideally every member of the Team should use this Section to add their preferred People/Organization that deserves to be given credit after we've completed this Project.
 
