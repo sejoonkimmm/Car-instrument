@@ -1,9 +1,9 @@
 
 # CAN Communication
-This section describes the hardware and system architecture of the PiRacer instrument cluster. 
+This section describes the Setup we used for our PiRacer Instrument Cluster. 
 
 ## Materials
-The following materials are used for this section. The Speed Sensor (LM393) is connected with Arduino Nano/Uno and the Arduino Nano/Uno is connected with MCP2515. The CAN BUS is stablished between the MCP2515 and the 2CH CAN BUS FD HAT. 
+The following materials are used for this section. The Speed Sensor (LM393) is connected with Arduino Nano and the Arduino Nano is connected with MCP2515 CAN Module. The CAN BUS is established between the MCP2515 and the 2CH CAN BUS FD HAT. 
 The 2CH CAN BUS FD HAT is connected with Raspberry Pi 4. 
 The drivetrain of the PiRacer is connected via I2C with the Raspberry Pi 4.
 
