@@ -30,25 +30,27 @@ Below is a List showing the Equipments used for this Project:
 - Waveshare PiRacer (Standard Edition) [ [OEM Link](https://www.waveshare.com/piracer-ai-kit.htm) ]
 - Raspberry Pi 4 (Model B 8GB RAM) [ [OEM Link](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/) ]
 - SEEED Studio 2-Channel MCP2518FD CAN-BUS(FD) HAT for Raspberry Pi [ [OEM Link](https://www.seeedstudio.com/CAN-BUS-FD-HAT-for-Raspberry-Pi-p-4742.html) ]
-- Arduino UNO Rev3 (#Todo: This will probably be changed to Nano after Project is complete) [ [OEM Link](https://store.arduino.cc/products/arduino-uno-rev3) ]
-- SEEED Studio CAN-Bus Shield (V2) for Arduino (#Todo: This will probably be changed to the smaller Module) [ [OEM Link](https://www.seeedstudio.com/CAN-BUS-Shield-V2.html) ]
+- Arduino Nano V3, ATmega 328, Mini-USB [ [OEM Link](https://store.arduino.cc/en-de/products/arduino-nano) ]
+- MCP2515 CAN BUS Module Compatible with Arduino
 - 32GB SanDisk Micro SD Card
-- #Todo: Add more tools used in the project
+- 7.9inch DSI LCD (400 x 1280, 60Hz)
+- Joystick
 
 <br />
 <br />
 
 ## :memo:  Documentations
-- [Workflow.md](/docs/Workflow.md)
+- [High-level Data Flow Explanation](/docs/Architecture.md)
 - [Setting Environment](/docs/environment.md)
 - [How Configure Github Action CI/CD](https://github.com/sejoonkimmm/Car-instrument/wiki/How-Configure-Cross-compile-on-Github-action---Docker%3F)
-- #Todo: Add more Readme's in the [`/docs/`](/docs/) directory and then link to them from here
+- [CAN Communication Setup](/docs/CAN_Communication.md)
+- [Getting The Battery Level](/docs/Battery_Level.md)
 
 <br />
 <br />
 
 ## :oncoming_automobile:  Our Final Product in Action
-#Todo: Ideally a video should be embedded here showing our Piracer in action when after the Project has been completed.
+<img src="./docs/imgs/final.gif" width="70%" height="70%">
 
 <br />
 <br />
