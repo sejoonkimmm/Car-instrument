@@ -24,53 +24,64 @@ Raspberry Pi with Rasbian OS and 2CH-CAN-FD-HAT.<br>
 
 ## Code Example for testing
 ### Transmitter Code Example (Arduino Nano)
-> **Note**: We used to try to use MCP2515 Library, but it didn't work. So we used MCP_CAN Library instead of MCP2515 Library.
-> Maybe it might work depending on the external environment such as OS, Arduino version, etc. so please try it to use MCP2515 Library.
+> **Note**: The Arduino model might cause this not to work for you if you dont get the Oscillation and CS Pin right ;)
 
 ```ino
-#include <mcp_can.h>
-#include <SPI.h>
+#include <SPI.h> 
+#include "mcp2515_can.h"
 
-#define SENSOR_PIN 2
+#define MSG_ID 0x21
 
-MCP_CAN CAN(10);
-uint8_t count = 0;
+const uint16_t periodMS = 1000;
 
-void rpmCounter() {
- count++;
- Serial.println(count);
-}
+const int SPI_CS_PIN = 10;
+mcp2515_can CAN(SPI_CS_PIN);
+
+unsigned long myMillis;
+unsigned long lastTriggerMillis;
+
+const uint8_t pinForSpdSnsr = 3;
+volatile byte counter = 1;
 
 void setup() {
-
   Serial.begin(9600);
+  while(!Serial){};
+  while (CAN_OK != CAN.begin(CAN_500KBPS, MCP_8MHz)) {
+      Serial.println("CAN init fail, retry...");
+      delay(100);
+  }
+  Serial.println("CAN init ok!");
 
-  CAN.begin(MCP_ANY, CAN_125KBPS, MCP_8MHZ);
-  CAN.setMode(MCP_NORMAL);
-
-  pinMode(SENSOR_PIN, INPUT);
-  attachInterrupt(digitalPinToInterrupt(SENSOR_PIN), rpmCounter, RISING);
+  pinMode(pinForSpdSnsr, INPUT); 
+  attachInterrupt(digitalPinToInterrupt(pinForSpdSnsr), onHIGH, RISING);
+  lastTriggerMillis = millis();
 }
 
 void loop() {
-
-  uint8_t data[8];
-  int can_id = 0x125; // optional can id
-  int can_dlc = 8; // data length you want to send
-  memcpy(data, &count, 8); // copy count to data array
-
-  int status = CAN.sendMsgBuf(can_id, 0, can_dlc, data);
-
-  if (status == CAN_OK)
-    Serial.println("Success");
-  else 
-    Serial.println("Error");
-  delay(1000);
+  myMillis = millis();
+  if ((myMillis - lastTriggerMillis) >= periodMS) {
+    sendFullRotationsCount();
+    lastTriggerMillis = myMillis;
+  }
 }
+
+void onHIGH() {
+  ++counter;
+}
+
+void sendFullRotationsCount() {
+  Serial.println(counter);
+  CAN.sendMsgBuf(
+    MSG_ID, 
+    0,
+    1,
+    &counter
+  );
+  
+  counter = 0;
+}
+
 ```
-Reference:
-> 1. [MCP_CAN Library](https://github.com/coryjfowler/MCP_CAN_lib/)
-> 2. [MCP2515 Library](www.github.com/autowp/arduino-mcp2515)
 
 ### Receiver Code Example (Raspberry Pi)
 ```python
