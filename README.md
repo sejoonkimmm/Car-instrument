@@ -50,7 +50,7 @@ Below is a List showing the Equipments used for this Project:
 <br />
 
 ## :oncoming_automobile:  Our Final Product in Action
-<img src="./imgs/final.gif" width="70%" height="70%">
+<img src="./docs/imgs/final.gif" width="70%" height="70%">
 
 <br />
 <br />
