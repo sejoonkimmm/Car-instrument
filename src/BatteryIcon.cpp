@@ -111,8 +111,18 @@ static uint16_t getLowestMostOccuring(uint16_t * arr, uint8_t len, uint16_t cutO
   * @returns uint8_t the output converted to percentage.
   */
 static uint8_t outputToPercent(uint16_t output) {
-    return (output - LOWEST_BATT_INA > 0) ?
-               (output - LOWEST_BATT_INA) / ONE_PERCENT_INA : 0;
+    uint16_t val = (output - LOWEST_BATT_INA > 0) ? output - LOWEST_BATT_INA : 0;
+    qDebug() << "pval " << val;
+    if (val > 0) {
+        if (output > 24500 && output <= 25500) {
+            return (output- 24500) / 20;
+        } else if (output > 25500) {
+            return (output - 25500) / 400;
+        }
+        
+    }
+    // todo: name anonymous numbers appropriately
+    return 0;
 }
 
 /**
@@ -131,6 +141,7 @@ void BatteryIcon::refreshPercent() {
 
         // call functions to perform percentage calculation and store data to _percent
         _percent = outputToPercent(mostOccuringBattData);
+        qDebug() << "perc " << _percent;
 
         // store the last known charge
         if (_fd != -1) {

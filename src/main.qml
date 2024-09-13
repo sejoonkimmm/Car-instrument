@@ -15,7 +15,6 @@ Window {
     
     Image {
         id: bgImage
-        anchors.fill: line
         source: "qrc:/image/car.jpg"
     }
 
