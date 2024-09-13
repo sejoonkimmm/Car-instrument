@@ -18,7 +18,7 @@ The Diagram below illustrates our wiring setup for the PiRacer Instrument Cluste
 
 
 ## Set Up 
-Raspberry Pi with Rasbian OS and 2CH-CAN-FD-HAT.<br>
+Raspberry Pi with Debian(Bullseye) OS and 2CH-CAN-FD-HAT.<br>
 [How to set up 2CH-CAN-FD-HAT](https://www.waveshare.com/wiki/Template:2-CH_CAN_FD_HAT_User_Manual#Working_with_Raspberry_Pi)
 > **Note** Use Dual SPI Mode. Sometimes can0 and can01 is swapped, so please keep this in mind. If they are swapped, you have to rename can0 can1.
 
