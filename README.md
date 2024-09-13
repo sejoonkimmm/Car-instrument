@@ -40,7 +40,7 @@ Below is a List showing the Equipments used for this Project:
 <br />
 
 ## :memo:  Documentations
-- [Workflow.md](/docs/Workflow.md)
+- [High-level Data Flow Explanation](/docs/Architecture.md)
 - [Setting Environment](/docs/environment.md)
 - [How Configure Github Action CI/CD](https://github.com/sejoonkimmm/Car-instrument/wiki/How-Configure-Cross-compile-on-Github-action---Docker%3F)
 - [CAN Communication Setup](/docs/CAN_Communication.md)
