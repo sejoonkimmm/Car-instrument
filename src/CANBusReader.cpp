@@ -39,9 +39,9 @@ CANBusReader::~CANBusReader() {
 
 void CANBusReader::readCanData()
 {
-    qDebug() << "read can data called";
+    // qDebug() << "read can data called";
     while (m_canDevice->framesAvailable()) {
-        qDebug() << "frame available";
+        // qDebug() << "frame available";
         QCanBusFrame frame = m_canDevice->readFrame();
         if (frame.isValid() && frame.frameId() == FRAME_ID_SPEED) {
             int speed = static_cast<int>(frame.payload().at(0));
