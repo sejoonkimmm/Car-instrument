@@ -3,10 +3,9 @@ The Diagram below illustrates our wiring setup for the PiRacer Instrument Cluste
 
 <img src="./imgs/DES01_Instrument_Cluster_wiring.png" width="70%" height="70%">
 
-## High-level Data Flow Illustration
+## High-level Data Flow Explanation
 
-Below is a summarization of how we programmed the Outputs received from the
-LM393 Speed Sensor into our Piracer's Instrument Cluster:
+Below is a High-level explanation summarizing how we programmed the Outputs received from the LM393 Speed Sensor into our Piracer's Instrument Cluster:
 
 - The LM393 Speed Sensor sends out a HIGH Digital Output each time its Wheel
   rotates past a Hole. There are 20 Holes on its Wheel which means 20 HIGH
