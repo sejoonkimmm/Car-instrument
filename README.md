@@ -50,7 +50,7 @@ Below is a List showing the Equipments used for this Project:
 <br />
 
 ## :oncoming_automobile:  Our Final Product in Action
-#Todo: Ideally a video should be embedded here showing our Piracer in action when after the Project has been completed.
+<img src="./imgs/final.gif" width="70%" height="70%">
 
 <br />
 <br />
