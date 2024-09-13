@@ -1,6 +1,6 @@
 
 # CAN Communication
-This section describes the Setup we used for our PiRacer Instrument Cluster. 
+This section describes the CAN Bus Setup we used for our PiRacer Instrument Cluster. 
 
 ## Materials
 The following materials are used for this section. The Speed Sensor (LM393) is connected with Arduino Nano and the Arduino Nano is connected with MCP2515 CAN Module. The CAN BUS is established between the MCP2515 and the 2CH CAN BUS FD HAT. 
