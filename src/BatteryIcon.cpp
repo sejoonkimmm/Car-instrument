@@ -117,7 +117,7 @@ static uint8_t outputToPercent(uint16_t output) {
         if (output > 24500 && output <= 25500) {
             return (output- 24500) / 20;
         } else if (output > 25500) {
-            return (output - 25500) / 400;
+            return 50 + ((output - 25500) / 800);
         }
         
     }
