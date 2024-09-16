@@ -26,10 +26,10 @@ void Speedometer::setSpeed(int newSpeed)
     
     double speedCmPerSec = (rpm * circumference) / 60.0;
     
-    kalmanFilter(speedCmPerSec);
-    //emaFilter(speedCmPerSec);
+    // kalmanFilter(speedCmPerSec);
+    emaFilter(speedCmPerSec);
     //setNewSpeed(speedCmPerSec+30);
-    qDebug() << speedCmPerSec << "cm/s";
+    // qDebug() << speedCmPerSec << "cm/s";
 
 }
 
