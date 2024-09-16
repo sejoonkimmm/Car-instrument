@@ -18,12 +18,12 @@ int main(int argc, char *argv[])
     Speedometer     speedometer;
     BatteryIcon     batteryIcon(&app);
 
-    QObject::connect(&reader, &CANBusReader::newData, [=](int speed) {
-        double circumference = 2 * M_PI * 3.35;
-        double rps = static_cast<double>(speed) / 20;
-        double speedCmPerSec = circumference * rps;
+    //QObject::connect(&reader, &CANBusReader::newData, [=](int speed) {
+        //double circumference = 2 * M_PI * 3.35;
+        //double rps = static_cast<double>(speed) / 20;
+        //double speedCmPerSec = circumference * rps;
         // qDebug() << speedCmPerSec << " cm/s";
-    });
+    //});
     QObject::connect(&reader, &CANBusReader::newData, &speedometer, &Speedometer::setSpeed);
 
     QQmlApplicationEngine engine;
