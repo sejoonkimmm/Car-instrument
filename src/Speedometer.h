@@ -17,6 +17,9 @@ public:
     // Setters
     void setSpeed(int);
     void setNewSpeed(double);
+    void kalmanFilter(double measuredSpeed);
+    void emaFilter(double measuredSpeed);
+
 
 signals:
     void speedChanged();
@@ -25,7 +28,14 @@ signals:
 private:
     int m_speed;
     double m_newSpeed;
-    double TYRE_RADIUS = 3.35;
+    const double TYRE_RADIUS = 3.35;
+    double smoothedSpeed;
+    double alpha;
+    double estimatedSpeed;
+    double P;
+    double Q;
+    double R;
+    
 };
 
 #endif // SPEEDOMETER_H
